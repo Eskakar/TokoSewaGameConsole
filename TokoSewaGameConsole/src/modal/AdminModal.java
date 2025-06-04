@@ -127,7 +127,7 @@ public class AdminModal {
         }
     }
     //2. read transaksi pembayaran
-    public ArrayList<Pembayaran> getPembayaran() {
+    public ArrayList<Pembayaran> getAllPembayaran() {
         ArrayList<Pembayaran> pembayaran = new ArrayList<>();
         try {
             Connection conn = DatabaseConnection.getConnection();
@@ -203,6 +203,7 @@ public class AdminModal {
         }
     }
     //2. get / read all console -- jika diperlukan
+
     public ArrayList<Console> getAllConsoles() {
         ArrayList<Console> consoles = new ArrayList<>();
         try {
@@ -248,7 +249,7 @@ public class AdminModal {
         }
         return null;
     }
-    //5.update / edit console -- jika perlu 5 & 6 overloading namanya
+    //5.update / edit console 
     public boolean updateConsole(int id, int stock) {
         try {
             Connection conn = DatabaseConnection.getConnection();
@@ -263,7 +264,8 @@ public class AdminModal {
             return false;
         }
     }
-    //5.update / edit console -- jika perlu
+    /*
+    //6.update / edit console -- jika perlu
     public boolean updateConsole(int id, String nama, String deskripsi, int stock, int harga) {
         try {
             Connection conn = DatabaseConnection.getConnection();
@@ -282,7 +284,7 @@ public class AdminModal {
             return false;
         }
     }
-    //6. delete console -- jika perlu
+    //7. delete console -- jika perlu
     public boolean deleteConsole(int id) {
         try {
             Connection conn = DatabaseConnection.getConnection();
@@ -296,7 +298,7 @@ public class AdminModal {
             e.printStackTrace();
             return false;
         }
-    }
+    }*/
     //C. diskon
     //1. read diskon
     public ArrayList<Diskon> getAllDiskon() {
