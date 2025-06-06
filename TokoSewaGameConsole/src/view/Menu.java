@@ -135,6 +135,11 @@ public class Menu extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+    SubMenuB smb = new SubMenuB();
+        smb.setVisible(true);
+    
+    // Menutup form saat ini (optional)
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -143,8 +148,8 @@ public class Menu extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        SubMenu submenu = new SubMenu();
-        submenu.setVisible(true);
+        SubMenuA sma = new SubMenuA();
+        sma.setVisible(true);
     
     // Menutup form saat ini (optional)
         this.dispose();

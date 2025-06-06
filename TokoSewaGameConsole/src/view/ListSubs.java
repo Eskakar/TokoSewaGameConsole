@@ -3,20 +3,82 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
+import modal.SubsDAO;
+import modal.SubsModel;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Anzio
  */
-public class HistoryPembayaran extends javax.swing.JFrame {
-
+public class ListSubs extends javax.swing.JFrame {
+    private SubsDAO subsDAO;
+    private DefaultTableModel tableModel;
     /**
-     * Creates new form HistoryPembayaran
+     * Creates new form ListSubs
      */
-    public HistoryPembayaran() {
+    public ListSubs() {
         initComponents();
+        initializeTable();
+        subsDAO = new SubsDAO();
+        loadSubscriptionData();
     }
 
+    /**
+     * Inisialisasi struktur tabel
+     */
+    private void initializeTable() {
+        String[] columnNames = {"KTP", "Nama", "Status", "Tanggal Expired"};
+        tableModel = new DefaultTableModel(columnNames, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Membuat tabel tidak dapat diedit langsung
+            }
+        };
+        jTable1.setModel(tableModel);
+        
+        // Set lebar kolom
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(120); // KTP
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(150); // Nama
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(100); // Status
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(120); // Tanggal Expired
+    }
+    
+     private void loadSubscriptionData() {
+        // Bersihkan tabel terlebih dahulu
+        tableModel.setRowCount(0);
+        
+        List<SubsModel> subscriptions = subsDAO.getAllSubscriptions();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        
+        for (SubsModel sub : subscriptions) {
+            Object[] rowData = {
+                sub.getKtp(),
+                sub.getNama(),
+                sub.getStatus(),
+                sub.getTanggalExpired() != null ? dateFormat.format(sub.getTanggalExpired()) : ""
+            };
+            tableModel.addRow(rowData);
+        }
+        
+        // Update jumlah data di label
+        jLabel1.setText("List Subs (" + subscriptions.size() + " data)");
+    }
+     
+            
+    private SubsModel getSelectedSubscription() {
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Silakan pilih data subscription terlebih dahulu!");
+            return null;
+        }
+        
+        String ktp = (String) tableModel.getValueAt(selectedRow, 0);
+        return subsDAO.getSubscriptionByKTP(ktp);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,24 +88,19 @@ public class HistoryPembayaran extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-
-        jLabel1.setText("jLabel1");
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(600, 500));
         setMinimumSize(new java.awt.Dimension(600, 500));
         setPreferredSize(new java.awt.Dimension(600, 500));
 
-        jPanel1.setMaximumSize(new java.awt.Dimension(600, 500));
-        jPanel1.setMinimumSize(new java.awt.Dimension(600, 500));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -54,27 +111,24 @@ public class HistoryPembayaran extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "KTP", "Nama", "Status", "Tanggal Expired"
             }
         ));
+        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, -1, 340));
-
-        jLabel2.setText("History Persewaan");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, -1, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, 270));
 
         jButton1.setText("Edit");
         jButton1.setMaximumSize(new java.awt.Dimension(123, 28));
         jButton1.setMinimumSize(new java.awt.Dimension(123, 28));
-        jButton1.setOpaque(true);
         jButton1.setPreferredSize(new java.awt.Dimension(123, 28));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 440, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 380, -1, -1));
 
         jButton2.setText("Kembali ke Menu");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -82,7 +136,7 @@ public class HistoryPembayaran extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 440, -1, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 380, -1, -1));
 
         jButton3.setText("Hapus");
         jButton3.setMaximumSize(new java.awt.Dimension(123, 28));
@@ -93,7 +147,10 @@ public class HistoryPembayaran extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 440, -1, -1));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 380, -1, -1));
+
+        jLabel1.setText("List Subs");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 60, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -103,7 +160,7 @@ public class HistoryPembayaran extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -111,16 +168,47 @@ public class HistoryPembayaran extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+    SubsModel selectedSub = getSelectedSubscription();
+        if (selectedSub != null) {
+            // Buka form edit subscription
+            EditSubscriptionForm editForm = new EditSubscriptionForm(this, true, selectedSub, subsDAO);
+            editForm.setVisible(true);
+            
+            // Refresh tabel setelah edit
+            loadSubscriptionData();
+        }
+      
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-    SubMenuA sm = new SubMenuA();
-    sm.setVisible(true);
+        SubMenuB sm = new SubMenuB();
+        sm.setVisible(true);
+    
+    // Menutup form saat ini (optional)
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+    SubsModel selectedSub = getSelectedSubscription();
+        if (selectedSub != null) {
+            int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Apakah Anda yakin ingin menghapus subscription atas nama " + selectedSub.getNama() + "?",
+                "Konfirmasi Hapus",
+                JOptionPane.YES_NO_OPTION
+            );
+            
+            if (confirm == JOptionPane.YES_OPTION) {
+                if (subsDAO.deleteSubscription(selectedSub.getKtp())) {
+                    JOptionPane.showMessageDialog(this, "Subscription berhasil dihapus!");
+                    loadSubscriptionData(); // Refresh tabel
+                } else {
+                    JOptionPane.showMessageDialog(this, "Gagal menghapus subscription!");
+                }
+            }
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
@@ -140,20 +228,20 @@ public class HistoryPembayaran extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HistoryPembayaran.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListSubs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HistoryPembayaran.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListSubs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HistoryPembayaran.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListSubs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(HistoryPembayaran.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListSubs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HistoryPembayaran().setVisible(true);
+                new ListSubs().setVisible(true);
             }
         });
     }
@@ -163,7 +251,6 @@ public class HistoryPembayaran extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
