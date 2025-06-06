@@ -4,8 +4,9 @@
  */
 package view;
 
-import controller.LoginDAO;
+import modal.LoginDAO;
 import javax.swing.JOptionPane;
+import view.AdminView;
 
 /**
  *
@@ -60,6 +61,11 @@ public class Login extends javax.swing.JFrame {
         });
 
         jButton1.setText("Login");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -136,16 +142,10 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    
-                                                                         
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String username = jTextField1.getText().trim(); // jTextField2 is for username
-        String password = jPasswordField1.getText().trim(); // jTextField1 is for password
+        String username = jTextField1.getText().trim(); 
+        String password = jPasswordField1.getText().trim(); 
         
         // Validate input
         if (username.isEmpty() || password.isEmpty()) {
@@ -166,22 +166,14 @@ public class Login extends javax.swing.JFrame {
                     "Login berhasil! Selamat datang, " + username, 
                     "Login Success", 
                     JOptionPane.INFORMATION_MESSAGE);
-                
-                // Redirect based on user role
-                if (userRole.equalsIgnoreCase("customer")) {
-                    // Redirect to UserView for customer
-                    //UserView userView = new UserView();
-                    //userView.setVisible(true);
-                    //userView.pack();
-                    this.dispose(); // Close login window
                     
-                } else if (userRole.equalsIgnoreCase("admin")) {
-                    // Redirect to AdminView for admin
-                    //AdminView adminView = new AdminView();
-                    //adminView.setVisible(true);
-                    //adminView.pack();
-                    this.dispose(); // Close login window
-                }
+                    Menu m = new Menu();
+                    m.setVisible(true);
+                    m.pack();
+                
+                this.dispose();
+                
+
                 
             } else {
                 // tesLogin failed
@@ -191,8 +183,8 @@ public class Login extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE);
                 
                 // Clear password field for security
-                jTextField1.setText("");
-                jTextField1.requestFocus();
+                jPasswordField1.setText("");
+                jPasswordField1.requestFocus();
             }
             
         } catch (Exception e) {
@@ -203,8 +195,15 @@ public class Login extends javax.swing.JFrame {
                 "System Error", 
                 JOptionPane.ERROR_MESSAGE);
         }
-    }              
+                 
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
     
+                                                                         
+
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -231,11 +230,7 @@ public class Login extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Login().setVisible(true);
-            }
-        });
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

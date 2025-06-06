@@ -17,6 +17,7 @@ import view.AdminView;
 
 import java.util.ArrayList;
 import java.sql.Date;
+import view.Login;
 
 public class AdminController {
     private AdminModal model;
@@ -27,6 +28,10 @@ public class AdminController {
         this.view = view;
         view.setController(this);
         loadInitialData();
+    }
+
+    public AdminController(AdminModal model, Login login) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     private void loadInitialData() {

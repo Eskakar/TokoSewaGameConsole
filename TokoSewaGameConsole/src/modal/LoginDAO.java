@@ -2,13 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package controller;
+package modal;
 
 /**
  *
  * @author Anzio
  */
-import controller.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -49,7 +48,7 @@ public class LoginDAO {
      * @throws SQLException
      */
     private String checkAdminCredentials(String username, String password) throws SQLException {
-        String query = "SELECT * FROM admin WHERE username = ? AND password = ?";
+        String query = "SELECT * FROM admin WHERE nama = ? AND sandi = ?";
         
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
@@ -71,18 +70,7 @@ public class LoginDAO {
      * @param username Username customer
      * @return ResultSet dengan data customer
      */
-    public ResultSet getCustomerByUsername(String username) {
-        try {
-            String query = "SELECT * FROM customer WHERE username = ?";
-            Connection connection = DatabaseConnection.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement(query);
-            pstmt.setString(1, username);
-            return pstmt.executeQuery();
-        } catch (SQLException e) {
-            System.err.println("Error getting customer data: " + e.getMessage());
-            return null;
-        }
-    }
+   
     
     /**
      * Get admin details by username (optional, untuk keperluan lain)
@@ -91,7 +79,7 @@ public class LoginDAO {
      */
     public ResultSet getAdminByUsername(String username) {
         try {
-            String query = "SELECT * FROM admin WHERE username = ?";
+            String query = "SELECT * FROM admin WHERE nama = ?";
             Connection connection = DatabaseConnection.getConnection();
             PreparedStatement pstmt = connection.prepareStatement(query);
             pstmt.setString(1, username);
