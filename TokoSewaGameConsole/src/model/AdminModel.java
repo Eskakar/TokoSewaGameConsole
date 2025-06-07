@@ -119,7 +119,7 @@ public class AdminModel {
     public boolean addConsole(String nama, String deskripsi, int stock, int harga) {
         try {
             Connection conn = DatabaseConnection.getConnection();
-            String sql = "INSERT INTO console (nama, deskripsi, stock, harga) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO console (paket, deskripsi, stock, harga) VALUES (?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
 
             stmt.setString(1, nama);
@@ -146,7 +146,7 @@ public class AdminModel {
             while (rs.next()) {
                 consoles.add(new Console(
                     rs.getInt("id"),
-                    rs.getString("nama"),
+                    rs.getString("paket"),
                     rs.getString("deskripsi"),
                     rs.getInt("stock"),
                     rs.getInt("harga")
@@ -169,7 +169,7 @@ public class AdminModel {
             if (rs.next()) {
                 return new Console(
                     rs.getInt("id"),
-                    rs.getString("nama"),
+                    rs.getString("paket"),
                     rs.getString("deskripsi"),
                     rs.getInt("stock"),
                     rs.getInt("harga")
@@ -243,7 +243,7 @@ public class AdminModel {
             while (rs.next()) {
                 diskon.add(new Diskon(
                     rs.getString("kode_unik"),
-                    rs.getInt("person")
+                    rs.getInt("persen")
                 ));
             }
         } catch (SQLException e) {
