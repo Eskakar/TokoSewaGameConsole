@@ -5,20 +5,21 @@
 
 /**
  *
- * @author ASUS
+ * @author Anzio
  */
+
 import model.AdminModel;
 import controller.*;
-import view.*;
+import view.Login;
 
 public class Main {
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(() -> {
-            AdminModel model = new AdminModel();
-            AdminView view = new AdminView();
-            new AdminController(model, view);
-            view.setVisible(true);
-            AdminController admin = new AdminController(model,view);
+            //AdminModal model = new AdminModal();
+            Login login = new Login();
+            //new AdminController(model, login);
+            login.setVisible(true);
+
         });
     }
 }

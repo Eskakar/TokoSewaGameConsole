@@ -17,6 +17,7 @@ import view.AdminView;
 
 import java.util.ArrayList;
 import java.sql.Date;
+import view.Login;
 
 public class AdminController {
     private AdminModel model;
@@ -32,6 +33,10 @@ public class AdminController {
         loadInitialData();
     }
 
+    public AdminController(AdminModel model, Login login) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     private void loadInitialData() {
         loadPembayaranList();
         loadConsoleList();
@@ -40,9 +45,9 @@ public class AdminController {
     }
 
     // ===== PEMBAYARAN =====
-    public void loadPembayaranList() {
+    public ArrayList loadPembayaranList() {
         ArrayList<Pembayaran> pembayaranList = model.getAllPembayaran();
-        view.showPembayaranList(pembayaranList); //jika perlu
+        return pembayaranList;
     }
 
     public void addPembayaran(int fk_admin, int fk_console, String KTP, String nama_pelanggan,
@@ -105,9 +110,9 @@ public class AdminController {
     }
 
     // ===== CONSOLE =====
-    public void loadConsoleList() { //jika perlu untuk ambil data semua console
+    public ArrayList loadConsoleList() { //jika perlu untuk ambil data semua console
         ArrayList<Console> consoleList = model.getAllConsoles();
-        view.showConsoleList(consoleList);
+        return consoleList;
         
     }
 
@@ -141,13 +146,13 @@ public class AdminController {
     // ===== DISKON =====
     public void loadDiskonList() {
         ArrayList<Diskon> diskonList = model.getAllDiskon(); // jika perlu
-        view.showDiskonList(diskonList);
+        //view.showDiskonList(diskonList);
     }
 
     // ===== BERLANGGANAN =====
-    public void loadBerlanggananList() {
+    public ArrayList loadBerlanggananList() {
         ArrayList<Berlangganan> berlanggananList = model.readAllBerlangganan();
-        view.showBerlanggananList(berlanggananList);
+       return berlanggananList;
     }
 
     public void updateStatusBerlangganan(String KTP, String newStatus) {
