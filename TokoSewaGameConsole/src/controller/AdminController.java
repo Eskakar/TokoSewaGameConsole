@@ -9,23 +9,23 @@ package controller;
  * @author ASUS
  */
 import model.AdminModel;
-import model.AdminModel.Pembayaran;
-import model.AdminModel.Berlangganan;
-import model.AdminModel.Console;
-import model.AdminModel.Diskon;
+import model.Pembayaran;
+import model.Berlangganan;
+import model.Console;
+import model.Diskon;
 import view.AdminView;
 
 import java.util.ArrayList;
 import java.sql.Date;
 
 public class AdminController {
-    private AdminModel model;
-    private AdminView view;
+    private AdminModel modelAdmin;
+    private AdminView viewAdmin;
 
-    public AdminController(AdminModel model, AdminView view) {
-        this.model = model;
-        this.view = view;
-        view.setController(this);
+    public AdminController(AdminModel modelA, AdminView viewA) {
+        this.modelAdmin = modelA;
+        this.viewAdmin = viewA;
+        viewA.setController(this);
         loadInitialData();
     }
 
@@ -38,20 +38,20 @@ public class AdminController {
 
     // ===== PEMBAYARAN =====
     public void loadPembayaranList() {
-        ArrayList<Pembayaran> pembayaranList = model.getAllPembayaran();
-        //view.showPembayaranList(pembayaranList); //jika perlu
+        ArrayList<Pembayaran> pembayaranList = modelAdmin.getAllPembayaran();
+        viewAdmin.showPembayaranList(pembayaranList); //jika perlu
     }
 
     public void addPembayaran(int fk_admin, int fk_console, String KTP, String nama_pelanggan,
                               int lama_peminjaman, String kodeDiskon) {
 
         // Step 1: Ambil data console berdasarkan ID
-        Console console = model.getConsoleById(fk_console);
+        Console console = modelAdmin.getConsoleById(fk_console);
         if (console == null) {
-            view.showMessage("Console tidak ditemukan.");
+            viewAdmin.showMessage("Console tidak ditemukan.");
             return;
         }else if(console.stock == 0){
-            view.showMessage("Console Kehabisan Stock");
+            viewAdmin.showMessage("Console Kehabisan Stock");
             return;
         }
 
@@ -60,7 +60,7 @@ public class AdminController {
 
         // Step 2: Cek diskon dari kode diskon jika ada
         if (kodeDiskon != null && !kodeDiskon.isEmpty()) {
-            ArrayList<Diskon> diskons = model.getAllDiskon();
+            ArrayList<Diskon> diskons = modelAdmin.getAllDiskon();
             for (Diskon d : diskons) {
                 if (d.Kode_unik.equalsIgnoreCase(kodeDiskon)) {
                     int potongan = (totalHarga * d.diskon) / 100;
@@ -71,7 +71,7 @@ public class AdminController {
         }
 
         // Step 3: Cek apakah pelanggan berlangganan
-        ArrayList<Berlangganan> langganans = model.readAllBerlangganan();
+        ArrayList<Berlangganan> langganans = modelAdmin.readAllBerlangganan();
         for (Berlangganan b : langganans) {
             if (b.KTP.equals(KTP) && b.status.equalsIgnoreCase("Aktif")) {
                 // Isi otomatis nama
@@ -83,75 +83,76 @@ public class AdminController {
         }
 
         // Step 4: Tambahkan transaksi
-        boolean success = model.addTransaksi(fk_admin, fk_console, KTP, nama_pelanggan, lama_peminjaman, totalHarga, "Belum Dikembalikan");
+        boolean success = modelAdmin.addTransaksi(fk_admin, fk_console, KTP, nama_pelanggan, lama_peminjaman, totalHarga, "Belum Dikembalikan");
         if (success) {
-            view.showMessage("Pembayaran berhasil ditambahkan!");
+            viewAdmin.showMessage("Pembayaran berhasil ditambahkan!");
             loadPembayaranList();
         } else {
-            view.showMessage("Gagal menambahkan pembayaran.");
+            viewAdmin.showMessage("Gagal menambahkan pembayaran.");
         }
     }
 
     public void updatePembayaranStatus(int id, Date tanggal) {
-        if (model.updatePembayaran(id, tanggal)) {
-            view.showMessage("Status pembayaran berhasil diperbarui!");
+        if (modelAdmin.updatePembayaran(id, tanggal)) {
+            viewAdmin.showMessage("Status pembayaran berhasil diperbarui!");
             loadPembayaranList();
         } else {
-            view.showMessage("Gagal memperbarui status pembayaran.");
+            viewAdmin.showMessage("Gagal memperbarui status pembayaran.");
         }
     }
 
     // ===== CONSOLE =====
     public void loadConsoleList() { //jika perlu untuk ambil data semua console
-        ArrayList<Console> consoleList = model.getAllConsoles();
+        ArrayList<Console> consoleList = modelAdmin.getAllConsoles();
+        viewAdmin.showConsoleList(consoleList);
         
     }
 
     public void addConsole(String nama, String deskripsi, int stock, int harga) {
-        if (model.addConsole(nama, deskripsi, stock, harga)) {
-            view.showMessage("Console berhasil ditambahkan!");
+        if (modelAdmin.addConsole(nama, deskripsi, stock, harga)) {
+            viewAdmin.showMessage("Console berhasil ditambahkan!");
             loadConsoleList();
         } else {
-            view.showMessage("Gagal menambahkan console.");
+            viewAdmin.showMessage("Gagal menambahkan console.");
         }
     }
 
     public void updateConsole(int id, String nama, String deskripsi, int stock, int harga) {
-        if (model.updateConsole(id, stock)) {
-            view.showMessage("Console berhasil diperbarui!");
+        if (modelAdmin.updateConsole(id, stock)) {
+            viewAdmin.showMessage("Console berhasil diperbarui!");
             loadConsoleList();
         } else {
-            view.showMessage("Gagal memperbarui console.");
+            viewAdmin.showMessage("Gagal memperbarui console.");
         }
     }
     /* jika perlu
     public void deleteConsole(int id) {
-        if (model.deleteConsole(id)) {
-            view.showMessage("Console berhasil dihapus!");
+        if (modelAdmin.deleteConsole(id)) {
+            viewAdmin.showMessage("Console berhasil dihapus!");
             loadConsoleList();
         } else {
-            view.showMessage("Gagal menghapus console.");
+            viewAdmin.showMessage("Gagal menghapus console.");
         }
     }*/
 
     // ===== DISKON =====
     public void loadDiskonList() {
-        ArrayList<Diskon> diskonList = model.getAllDiskon(); // jika perlu
-        //view.showDiskonList(diskonList);
+        ArrayList<Diskon> diskonList = modelAdmin.getAllDiskon(); // jika perlu
+        viewAdmin.showDiskonList(diskonList);
     }
 
     // ===== BERLANGGANAN =====
     public void loadBerlanggananList() {
-        ArrayList<Berlangganan> berlanggananList = model.readAllBerlangganan();
-        view.showBerlanggananList(berlanggananList);
+        ArrayList<Berlangganan> berlanggananList = modelAdmin.readAllBerlangganan();
+        viewAdmin.showBerlanggananList(berlanggananList);
     }
 
     public void updateStatusBerlangganan(String KTP, String newStatus) {
-        if (model.updateStatusBerlangganan(KTP, newStatus)) {
-            view.showMessage("Status berlangganan berhasil diperbarui!");
+        if (modelAdmin.updateStatusBerlangganan(KTP, newStatus)) {
+            viewAdmin.showMessage("Status berlangganan berhasil diperbarui!");
             loadBerlanggananList();
         } else {
-            view.showMessage("Gagal memperbarui status berlangganan.");
+            viewAdmin.showMessage("Gagal memperbarui status berlangganan.");
         }
     }
 }

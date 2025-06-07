@@ -18,6 +18,7 @@ public class Main {
             AdminView view = new AdminView();
             new AdminController(model, view);
             view.setVisible(true);
+            AdminController admin = new AdminController(model,view);
         });
     }
 }
