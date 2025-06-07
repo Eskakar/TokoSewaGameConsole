@@ -7,14 +7,14 @@
  *
  * @author ASUS
  */
-import modal.*;
+import model.AdminModel;
 import controller.*;
 import view.*;
 
 public class Main {
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(() -> {
-            AdminModal model = new AdminModal();
+            AdminModel model = new AdminModel();
             AdminView view = new AdminView();
             new AdminController(model, view);
             view.setVisible(true);

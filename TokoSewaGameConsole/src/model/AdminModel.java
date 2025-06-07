@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package modal;
+package model;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -15,78 +15,9 @@ import java.util.ArrayList;
  *
  * @author ASUS
  */
-public class AdminModal {
-    // inner class untuk paket console
-    public static class Console {
-        public int id;
-        public String nama_paket;
-        public String deskripsi;
-        public int stock;
-        public int harga;
-
-        public Console(int id, String nama, String desk, int stck, int harga) {
-            this.id = id;
-            this.nama_paket = nama;
-            this.deskripsi = desk;
-            this.stock = stck;
-            this.harga = harga;
-        }
-    }
-    // inner class untuk data pelanggan berlanggan
-    public static class Berlangganan {
-        public String KTP;
-        public String nama;
-        public String status;
-        public Date tanggal_expired;
-
-        public Berlangganan(String KTP, String nama, String status,Date tanggal) {
-            this.KTP = KTP;
-            this.nama = nama;
-            this.status = status;
-            this.tanggal_expired = tanggal;
-        }
-    }
-    // inner class untuk data diskon
-    public static class Diskon {
-        public String Kode_unik;
-        public int diskon;
-
-        public Diskon(String kode, int diskon) {
-            this.Kode_unik = kode;
-            this.diskon = diskon;
-        }
-    }
-    // inner class untuk data Pembayaran
-    public static class Pembayaran {
-        public int id;
-        public int fk_admin;
-        public int fk_console;
-        public String KTP;
-        public String nama_pelanggan;
-        public Date tanggal_pembayaran;
-        public int lama_peminjaman;
-        public Date tanggal_pengembalian; //kapan pelanggan sudah mengembalikan ke toko
-        public int total_harga;
-        public String status_console;//sudah dikembalikan atau belum
-        public Date tanggal_expired; //batas akhir pengembalian game console
-        
-         // Constructor dengan parameter
-        public Pembayaran(int id, int fk_admin, int fk_console, String KTP, String nama_pelanggan, 
-                     Date tanggal_pembayaran, int lama_peminjaman, int total_harga, 
-                     Date tanggal_expired) {
-            this.id = id;
-            this.fk_admin = fk_admin;
-            this.fk_console = fk_console;
-            this.KTP = KTP;
-            this.nama_pelanggan = nama_pelanggan;
-            this.tanggal_pembayaran = tanggal_pembayaran;
-            this.lama_peminjaman = lama_peminjaman;
-            this.tanggal_pengembalian = null; // Awalnya null karena belum dikembalikan
-            this.total_harga = total_harga;
-            this.status_console = "Belum Dikembalikan"; // Status awal
-            this.tanggal_expired = tanggal_expired;
-        }
-    }
+public class AdminModel {
+ 
+    
     // inner class untuk data Admin
     public static class Admin {
         public int id;

@@ -8,21 +8,21 @@ package controller;
  *
  * @author ASUS
  */
-import modal.*;
-import modal.AdminModal.Pembayaran;
-import modal.AdminModal.Berlangganan;
-import modal.AdminModal.Console;
-import modal.AdminModal.Diskon;
+import model.AdminModel;
+import model.AdminModel.Pembayaran;
+import model.AdminModel.Berlangganan;
+import model.AdminModel.Console;
+import model.AdminModel.Diskon;
 import view.AdminView;
 
 import java.util.ArrayList;
 import java.sql.Date;
 
 public class AdminController {
-    private AdminModal model;
+    private AdminModel model;
     private AdminView view;
 
-    public AdminController(AdminModal model, AdminView view) {
+    public AdminController(AdminModel model, AdminView view) {
         this.model = model;
         this.view = view;
         view.setController(this);
@@ -104,6 +104,7 @@ public class AdminController {
     // ===== CONSOLE =====
     public void loadConsoleList() { //jika perlu untuk ambil data semua console
         ArrayList<Console> consoleList = model.getAllConsoles();
+        
     }
 
     public void addConsole(String nama, String deskripsi, int stock, int harga) {
