@@ -4,8 +4,8 @@
  */
 package view;
 
-import modal.GudangDAO;
-import modal.ConsoleModel;
+import model.GudangDAO;
+import model.ConsoleModel;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;

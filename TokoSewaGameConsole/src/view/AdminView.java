@@ -6,7 +6,7 @@ package view;
 
 import controller.AdminController;
 import java.util.ArrayList;
-import modal.AdminModal;
+import model.AdminModal;
 
 /**
  *

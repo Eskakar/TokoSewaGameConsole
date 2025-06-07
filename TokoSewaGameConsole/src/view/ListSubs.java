@@ -3,8 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
-import modal.SubsDAO;
-import modal.SubsModel;
+import model.SubsDAO;
+import model.SubsModel;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.JOptionPane;

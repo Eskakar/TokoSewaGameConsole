@@ -8,11 +8,11 @@ package controller;
  *
  * @author ASUS
  */
-import modal.*;
-import modal.AdminModal.Pembayaran;
-import modal.AdminModal.Berlangganan;
-import modal.AdminModal.Console;
-import modal.AdminModal.Diskon;
+import model.AdminModal;
+import model.AdminModal.Pembayaran;
+import model.AdminModal.Berlangganan;
+import model.AdminModal.Console;
+import model.AdminModal.Diskon;
 import view.AdminView;
 
 import java.util.ArrayList;

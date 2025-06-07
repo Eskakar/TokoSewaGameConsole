@@ -4,7 +4,7 @@
  */
 package view;
 
-import modal.LoginDAO;
+import model.LoginDAO;
 import javax.swing.JOptionPane;
 import view.AdminView;
 

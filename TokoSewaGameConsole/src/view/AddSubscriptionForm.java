@@ -4,8 +4,8 @@
  */
 package view;
 
-import modal.SubsDAO;
-import modal.SubsModel;
+import model.SubsDAO;
+import model.SubsModel;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;

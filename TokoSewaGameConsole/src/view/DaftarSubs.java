@@ -3,18 +3,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
-
+import java.sql.SQLException;
+import model.BerlanggananDAO;
+import model.Berlangganan;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Anzio
  */
 public class DaftarSubs extends javax.swing.JFrame {
-
+    private BerlanggananDAO berlanggananDAO;
     /**
      * Creates new form Subscriptions
      */
-    public DaftarSubs() {
+    public DaftarSubs() throws SQLException {
         initComponents();
+        berlanggananDAO = new BerlanggananDAO();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -28,11 +38,19 @@ public class DaftarSubs extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jTextField5 = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(500, 500));
-        setMinimumSize(new java.awt.Dimension(500, 500));
-        setPreferredSize(new java.awt.Dimension(500, 500));
+        setMaximumSize(new java.awt.Dimension(500, 300));
+        setMinimumSize(new java.awt.Dimension(500, 300));
+        setPreferredSize(new java.awt.Dimension(500, 300));
 
         jPanel1.setMaximumSize(new java.awt.Dimension(500, 500));
         jPanel1.setMinimumSize(new java.awt.Dimension(500, 500));
@@ -40,6 +58,52 @@ public class DaftarSubs extends javax.swing.JFrame {
 
         jLabel1.setText("Daftar Subscriptions");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 40, -1, -1));
+
+        jLabel3.setText("ID KTP                  :");
+        jLabel3.setMaximumSize(new java.awt.Dimension(40, 20));
+        jLabel3.setMinimumSize(new java.awt.Dimension(40, 20));
+        jLabel3.setPreferredSize(new java.awt.Dimension(40, 20));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 100, -1));
+
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 78, 250, 30));
+
+        jLabel5.setText("Nama                   :");
+        jLabel5.setMaximumSize(new java.awt.Dimension(40, 20));
+        jLabel5.setMinimumSize(new java.awt.Dimension(40, 20));
+        jLabel5.setPreferredSize(new java.awt.Dimension(40, 20));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, 100, -1));
+        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 250, 30));
+
+        jLabel4.setText("Durasi Pinjam    :");
+        jLabel4.setMaximumSize(new java.awt.Dimension(40, 20));
+        jLabel4.setMinimumSize(new java.awt.Dimension(40, 20));
+        jLabel4.setPreferredSize(new java.awt.Dimension(40, 20));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 100, -1));
+        jPanel1.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, 250, 30));
+
+        jButton2.setText("Confirm");
+        jButton2.setMaximumSize(new java.awt.Dimension(123, 28));
+        jButton2.setMinimumSize(new java.awt.Dimension(123, 28));
+        jButton2.setPreferredSize(new java.awt.Dimension(123, 28));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, 160, -1));
+
+        jButton3.setText("Kembali ke Menu");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -55,6 +119,128 @@ public class DaftarSubs extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        if (!validateInput()) {
+            return;
+        }
+        
+        String ktp = jTextField2.getText().trim();
+        String nama = jTextField3.getText().trim();
+        String tanggalExpiredStr = jTextField5.getText().trim();
+        
+        try {
+            // Parse tanggal
+            LocalDate tanggalExpired = LocalDate.parse(tanggalExpiredStr);
+            
+            // Cek apakah KTP sudah terdaftar
+            if (berlanggananDAO.isKTPExists(ktp)) {
+                JOptionPane.showMessageDialog(this, 
+                    "KTP " + ktp + " sudah terdaftar dalam sistem!", 
+                    "Error", 
+                    JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            // Tentukan status berdasarkan tanggal expired
+            String status = tanggalExpired.isAfter(LocalDate.now()) || 
+                          tanggalExpired.isEqual(LocalDate.now()) ? "Aktif" : "Tidak Aktif";
+            
+            // Buat object Berlangganan
+            Berlangganan berlangganan = new Berlangganan(ktp, nama, status, tanggalExpired);
+            
+            // Simpan ke database
+            if (berlanggananDAO.tambahBerlangganan(berlangganan)) {
+                JOptionPane.showMessageDialog(this, 
+                    "Berlangganan berhasil didaftarkan!\n" +
+                    "KTP: " + ktp + "\n" +
+                    "Nama: " + nama + "\n" +
+                    "Status: " + status + "\n" +
+                    "Tanggal Expired: " + tanggalExpired.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), 
+                    "Sukses", 
+                    JOptionPane.INFORMATION_MESSAGE);
+                
+                // Clear form setelah berhasil
+                clearForm();
+            } else {
+                JOptionPane.showMessageDialog(this, 
+                    "Gagal mendaftarkan berlangganan!\nSilakan coba lagi.", 
+                    "Error", 
+                    JOptionPane.ERROR_MESSAGE);
+            }
+            
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(this, 
+                "Format tanggal tidak valid!\nGunakan format: yyyy-mm-dd (contoh: 2025-12-31)", 
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, 
+                "Terjadi kesalahan: " + e.getMessage(), 
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
+        }
+    
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private boolean validateInput() {
+        String ktp = jTextField2.getText().trim();
+        String nama = jTextField3.getText().trim();
+        String tanggalExpired = jTextField5.getText().trim();
+        
+        if (ktp.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "ID KTP tidak boleh kosong!", "Error", JOptionPane.ERROR_MESSAGE);
+            jTextField2.requestFocus();
+            return false;
+        }
+        
+        if (ktp.length() != 15) {
+            JOptionPane.showMessageDialog(this, "ID KTP harus 15 digit!", "Error", JOptionPane.ERROR_MESSAGE);
+            jTextField2.requestFocus();
+            return false;
+        }
+        
+        if (!ktp.matches("\\d+")) {
+            JOptionPane.showMessageDialog(this, "ID KTP hanya boleh berisi angka!", "Error", JOptionPane.ERROR_MESSAGE);
+            jTextField2.requestFocus();
+            return false;
+        }
+        
+        if (nama.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nama tidak boleh kosong!", "Error", JOptionPane.ERROR_MESSAGE);
+            jTextField3.requestFocus();
+            return false;
+        }
+        
+        if (nama.length() < 2) {
+            JOptionPane.showMessageDialog(this, "Nama minimal 2 karakter!", "Error", JOptionPane.ERROR_MESSAGE);
+            jTextField3.requestFocus();
+            return false;
+        }
+        
+        if (tanggalExpired.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Tanggal expired tidak boleh kosong!", "Error", JOptionPane.ERROR_MESSAGE);
+            jTextField5.requestFocus();
+            return false;
+        }
+        
+        return true;
+    }
+    
+     private void clearForm() {
+        jTextField2.setText("");
+        jTextField3.setText("");
+        jTextField5.setText("");
+        jTextField2.requestFocus();
+    }
     /**
      * @param args the command line arguments
      */
@@ -86,13 +272,25 @@ public class DaftarSubs extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DaftarSubs().setVisible(true);
+                try {
+                    new DaftarSubs().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(DaftarSubs.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 }

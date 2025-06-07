@@ -8,7 +8,6 @@
  * @author Anzio
  */
 
-import modal.*;
 import controller.*;
 import view.Login;
 

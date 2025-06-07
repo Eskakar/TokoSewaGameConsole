@@ -2,25 +2,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package modal;
-import java.util.Date;
+package model;
+import java.time.LocalDate;
 
 /**
  *
  * @author Anzio
  */
-public class SubsModel {
+public class Berlangganan {
     private String ktp;
     private String nama;
     private String status;
-    private Date tanggalExpired;
+    private LocalDate tanggalExpired;
     
     // Constructor kosong
-    public SubsModel() {
-    }
+    public Berlangganan() {}
     
     // Constructor dengan parameter
-    public SubsModel(String ktp, String nama, String status, Date tanggalExpired) {
+    public Berlangganan(String ktp, String nama, String status, LocalDate tanggalExpired) {
         this.ktp = ktp;
         this.nama = nama;
         this.status = status;
@@ -52,17 +51,17 @@ public class SubsModel {
         this.status = status;
     }
     
-    public Date getTanggalExpired() {
+    public LocalDate getTanggalExpired() {
         return tanggalExpired;
     }
     
-    public void setTanggalExpired(Date tanggalExpired) {
+    public void setTanggalExpired(LocalDate tanggalExpired) {
         this.tanggalExpired = tanggalExpired;
     }
     
     @Override
     public String toString() {
-        return "Subscription{" +
+        return "Berlangganan{" +
                 "ktp='" + ktp + '\'' +
                 ", nama='" + nama + '\'' +
                 ", status='" + status + '\'' +
