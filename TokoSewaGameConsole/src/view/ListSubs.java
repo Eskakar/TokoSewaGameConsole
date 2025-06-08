@@ -3,8 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
-import model.SubsDAO;
-import model.SubsModel;
+import model.BerlanggananDAO;
+import model.BerlanggananModel;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Anzio
  */
 public class ListSubs extends javax.swing.JFrame {
-    private SubsDAO subsDAO;
+    private BerlanggananDAO subsDAO;
     private DefaultTableModel tableModel;
     /**
      * Creates new form ListSubs
@@ -23,7 +23,7 @@ public class ListSubs extends javax.swing.JFrame {
     public ListSubs() {
         initComponents();
         initializeTable();
-        subsDAO = new SubsDAO();
+        subsDAO = new BerlanggananDAO();
         loadSubscriptionData();
     }
 
@@ -51,10 +51,10 @@ public class ListSubs extends javax.swing.JFrame {
         // Bersihkan tabel terlebih dahulu
         tableModel.setRowCount(0);
         
-        List<SubsModel> subscriptions = subsDAO.getAllSubscriptions();
+        List<BerlanggananModel> subscriptions = subsDAO.getAllSubscriptions();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         
-        for (SubsModel sub : subscriptions) {
+        for (BerlanggananModel sub : subscriptions) {
             Object[] rowData = {
                 sub.getKtp(),
                 sub.getNama(),
@@ -69,7 +69,7 @@ public class ListSubs extends javax.swing.JFrame {
     }
      
             
-    private SubsModel getSelectedSubscription() {
+    private BerlanggananModel getSelectedSubscription() {
         int selectedRow = jTable1.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Silakan pilih data subscription terlebih dahulu!");
@@ -168,7 +168,7 @@ public class ListSubs extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-    SubsModel selectedSub = getSelectedSubscription();
+    BerlanggananModel selectedSub = getSelectedSubscription();
         if (selectedSub != null) {
             // Buka form edit subscription
             EditSubscriptionForm editForm = new EditSubscriptionForm(this, true, selectedSub, subsDAO);
@@ -191,7 +191,7 @@ public class ListSubs extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-    SubsModel selectedSub = getSelectedSubscription();
+    BerlanggananModel selectedSub = getSelectedSubscription();
         if (selectedSub != null) {
             int confirm = JOptionPane.showConfirmDialog(
                 this,

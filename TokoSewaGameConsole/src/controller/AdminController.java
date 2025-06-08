@@ -8,33 +8,27 @@ package controller;
  *
  * @author ASUS
  */
-import model.AdminModel;
-import model.Pembayaran;
-import model.Berlangganan;
-import model.Console;
-import model.Diskon;
+import java.math.BigDecimal;
+import model.*;
 import view.AdminView;
-
 import java.util.ArrayList;
 import java.sql.Date;
+import model.BerlanggananModel;
+import model.ConsoleModel;
 import view.Login;
 
 public class AdminController {
-    private AdminModel model;
+    private AdminModel modelAdmin;
     private AdminView view;
     
     public AdminController(){
-        this.model = new AdminModel();
+        this.modelAdmin = new AdminModel();
     }
     public AdminController(AdminModel modelA, AdminView viewA) {
-        this.model = modelA;
+        this.modelAdmin = modelA;
         this.view = viewA;
         viewA.setController(this);
         loadInitialData();
-    }
-
-    public AdminController(AdminModel model, Login login) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     private void loadInitialData() {
@@ -46,7 +40,7 @@ public class AdminController {
 
     // ===== PEMBAYARAN =====
     public ArrayList loadPembayaranList() {
-        ArrayList<Pembayaran> pembayaranList = model.getAllPembayaran();
+        ArrayList<PembayaranModel> pembayaranList = model.getAllPembayaran();
         return pembayaranList;
     }
 
@@ -54,38 +48,40 @@ public class AdminController {
                               int lama_peminjaman, String kodeDiskon) {
 
         // Step 1: Ambil data console berdasarkan ID
-        Console console = model.getConsoleById(fk_console);
+        ConsoleModel console = model.getConsoleById(fk_console);
         if (console == null) {
             view.showMessage("Console tidak ditemukan.");
             return;
-        }else if(console.stock == 0){
+        }else if(console.getStock() == 0){
             view.showMessage("Console Kehabisan Stock");
             return;
         }
 
-        int hargaDasar = console.harga;
-        int totalHarga = hargaDasar * lama_peminjaman;
+        BigDecimal hargaDasar = console.getHarga();
+        //perkalian Bigdecimal dan int
+        BigDecimal totalHarga = hargaDasar.multiply(BigDecimal.valueOf(lama_peminjaman));
 
         // Step 2: Cek diskon dari kode diskon jika ada
         if (kodeDiskon != null && !kodeDiskon.isEmpty()) {
-            ArrayList<Diskon> diskons = model.getAllDiskon();
-            for (Diskon d : diskons) {
-                if (d.Kode_unik.equalsIgnoreCase(kodeDiskon)) {
-                    int potongan = (totalHarga * d.diskon) / 100;
-                    totalHarga -= potongan;
+            ArrayList<DiskonModel> diskons = model.getAllDiskon();
+            for (DiskonModel d : diskons) {
+                if (d.getKodeUnik().equalsIgnoreCase(kodeDiskon)) {
+                    BigDecimal potongan = (totalHarga.multiply(BigDecimal.valueOf(d.getDiskon()))).divide(BigDecimal.valueOf(100));
+                    totalHarga = totalHarga.subtract(potongan); //pengurangan harga;
                     break;
                 }
             }
         }
 
         // Step 3: Cek apakah pelanggan berlangganan
-        ArrayList<Berlangganan> langganans = model.readAllBerlangganan();
-        for (Berlangganan b : langganans) {
-            if (b.KTP.equals(KTP) && b.status.equalsIgnoreCase("Aktif")) {
+        ArrayList<BerlanggananModel> langganans = model.readAllBerlangganan();
+        for (BerlanggananModel b : langganans) {
+            if (b.getKtp().equals(KTP) && b.getStatus().equalsIgnoreCase("Aktif")) {
+                BigDecimal potongan = new BigDecimal("0.2");
                 // Isi otomatis nama
-                nama_pelanggan = b.nama;
-                // Diskon tambahan 20%
-                totalHarga -= (totalHarga * 20) / 100;
+                nama_pelanggan = b.getNama();
+                // DiskonModel tambahan 20%
+                totalHarga = totalHarga.subtract(totalHarga.multiply(potongan));
                 break;
             }
         }
@@ -111,7 +107,7 @@ public class AdminController {
 
     // ===== CONSOLE =====
     public ArrayList loadConsoleList() { //jika perlu untuk ambil data semua console
-        ArrayList<Console> consoleList = model.getAllConsoles();
+        ArrayList<ConsoleModel> consoleList = model.getAllConsoles();
         return consoleList;
         
     }
@@ -145,13 +141,13 @@ public class AdminController {
 
     // ===== DISKON =====
     public void loadDiskonList() {
-        ArrayList<Diskon> diskonList = model.getAllDiskon(); // jika perlu
+        ArrayList<DiskonModel> diskonList = model.getAllDiskon(); // jika perlu
         //view.showDiskonList(diskonList);
     }
 
     // ===== BERLANGGANAN =====
     public ArrayList loadBerlanggananList() {
-        ArrayList<Berlangganan> berlanggananList = model.readAllBerlangganan();
+        ArrayList<BerlanggananModel> berlanggananList = model.readAllBerlangganan();
        return berlanggananList;
     }
 

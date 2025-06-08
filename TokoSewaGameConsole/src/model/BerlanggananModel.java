@@ -9,18 +9,18 @@ import java.util.Date;
  *
  * @author Anzio
  */
-public class SubsModel {
+public class BerlanggananModel {
     private String ktp;
     private String nama;
     private String status;
     private Date tanggalExpired;
     
     // Constructor kosong
-    public SubsModel() {
+    public BerlanggananModel() {
     }
     
     // Constructor dengan parameter
-    public SubsModel(String ktp, String nama, String status, Date tanggalExpired) {
+    public BerlanggananModel(String ktp, String nama, String status, Date tanggalExpired) {
         this.ktp = ktp;
         this.nama = nama;
         this.status = status;

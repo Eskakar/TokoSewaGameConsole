@@ -9,23 +9,25 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.AdminModel;
-import model.Berlangganan;
+import model.BerlanggananDAO;
 
 /**
  *
  * @author ASUS
  */
 public class AdminView extends JFrame{
-
-    public void setController(AdminController aThis) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    
+    private AdminController controller;
+    
+    public void setController(AdminController controller) {
+        this.controller = controller;
     }
 
     public void showMessage(String message) {
         JOptionPane.showMessageDialog(this, message);
     }
 
-    public void showBerlanggananList(ArrayList<Berlangganan> berlanggananList) {
+    public void showBerlanggananList(ArrayList<BerlanggananDAO> berlanggananList) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

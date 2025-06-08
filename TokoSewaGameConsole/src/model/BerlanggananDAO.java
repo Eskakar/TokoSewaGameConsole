@@ -13,19 +13,15 @@ import javax.swing.JOptionPane;
  *
  * @author Anzio
  */
-public class SubsDAO {
+public class BerlanggananDAO {
     private Connection connection;
-    
 
- 
-    
-    
     /**
      * Mengambil semua data subscription dari database
      * @return List berisi semua data subscription
      */
-    public List<SubsModel> getAllSubscriptions() {
-        List<SubsModel> subscriptions = new ArrayList<>();
+    public ArrayList<BerlanggananModel> getAllSubscriptions() {
+        ArrayList<BerlanggananModel> subscriptions = new ArrayList<>();
         String sql = "SELECT * FROM berlangganan ORDER BY nama";
         
         try (Connection conn = DatabaseConnection.getConnection();
@@ -33,7 +29,7 @@ public class SubsDAO {
              ResultSet rs = stmt.executeQuery()) {
             
             while (rs.next()) {
-                SubsModel subscription = new SubsModel();
+                BerlanggananModel subscription = new BerlanggananModel();
                 subscription.setKtp(rs.getString("KTP"));
                 subscription.setNama(rs.getString("Nama"));
                 subscription.setStatus(rs.getString("status"));
@@ -53,7 +49,7 @@ public class SubsDAO {
      * @param subscription data subscription yang akan ditambah
      * @return true jika berhasil, false jika gagal
      */
-    public boolean addSubscription(SubsModel subscription) {
+    public boolean addSubscription(BerlanggananModel subscription) {
         String sql = "INSERT INTO berlangganan (KTP, Nama, status, tanggal_expired) VALUES (?, ?, ?, ?)";
         
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
@@ -75,7 +71,7 @@ public class SubsDAO {
      * @param subscription data subscription yang akan diupdate
      * @return true jika berhasil, false jika gagal
      */
-    public boolean updateSubscription(SubsModel subscription) {
+    public boolean updateSubscription(BerlanggananModel subscription) {
         String sql = "UPDATE berlangganan SET Nama = ?, status = ?, tanggal_expired = ? WHERE KTP = ?";
         
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
@@ -116,7 +112,7 @@ public class SubsDAO {
      * @param ktp nomor KTP yang dicari
      * @return object Subscription jika ditemukan, null jika tidak ditemukan
      */
-    public SubsModel getSubscriptionByKTP(String ktp) {
+    public BerlanggananModel getSubscriptionByKTP(String ktp) {
         String sql = "SELECT * FROM berlangganan WHERE KTP = ?";
         
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
@@ -124,7 +120,7 @@ public class SubsDAO {
             
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
-                    SubsModel subscription = new SubsModel();
+                    BerlanggananModel subscription = new BerlanggananModel();
                     subscription.setKtp(rs.getString("KTP"));
                     subscription.setNama(rs.getString("Nama"));
                     subscription.setStatus(rs.getString("status"));
@@ -150,6 +146,20 @@ public class SubsDAO {
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error menutup koneksi: " + e.getMessage());
+        }
+    }
+    public boolean updateSubscription(String ktp, String NewSatus) {
+        String sql = "UPDATE berlangganan SET  status = ? WHERE KTP = ?";
+        
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, NewSatus);
+            pstmt.setString(2, ktp);
+            
+            int rowsAffected = pstmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error mengupdate data: " + e.getMessage());
+            return false;
         }
     }
 }

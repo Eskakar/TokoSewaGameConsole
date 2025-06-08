@@ -3,8 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package view;
-import model.SubsDAO;
-import model.SubsModel;
+import model.BerlanggananDAO;
+import model.BerlanggananModel;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,14 +16,14 @@ import javax.swing.JOptionPane;
  */
 public class EditSubscriptionForm extends javax.swing.JDialog {
     
-    private SubsDAO subsDAO;
-    private SubsModel subscription;
+    private BerlanggananDAO subsDAO;
+    private BerlanggananModel subscription;
     private SimpleDateFormat dateFormat;
 
     /**
      * Creates new form EditSubscriptionForm
      */
-    public EditSubscriptionForm(java.awt.Frame parent, boolean modal, SubsModel subscription, SubsDAO subsDAO) {
+    public EditSubscriptionForm(java.awt.Frame parent, boolean modal, BerlanggananModel subscription, BerlanggananDAO subsDAO) {
         super(parent, modal);
         this.subscription = subscription;
         this.subsDAO = subsDAO;
@@ -193,7 +193,9 @@ public class EditSubscriptionForm extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_btnSimpanActionPerformed
-
+    public void showMessage(String message) {
+        JOptionPane.showMessageDialog(this, message);
+    }
     private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnBatalActionPerformed

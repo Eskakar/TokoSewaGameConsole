@@ -12,14 +12,14 @@ import java.util.List;
  *
  * @author Anzio
  */
-public class GudangDAO {
+public class ConsoleDAO {
     
     /**
      * Mengambil semua data console dari database
      * @return List of ConsoleModel objects
      */
-    public List<ConsoleModel> getAllConsoles() {
-        List<ConsoleModel> consoleList = new ArrayList<>();
+    public ArrayList<ConsoleModel> getAllConsoles() {
+        ArrayList<ConsoleModel> consoleList = new ArrayList<>();
         String query = "SELECT * FROM console ORDER BY id";
         
         try (Connection conn = DatabaseConnection.getConnection();
@@ -78,12 +78,8 @@ public class GudangDAO {
         return null;
     }
     
-    /**
-     * Update stok console
-     * @param id ID console
-     * @param newStock Stok baru
-     * @return true jika berhasil, false jika gagal
-     */
+    
+    
     public boolean updateStock(int id, int newStock) {
         String query = "UPDATE console SET stock = ? WHERE id = ?";
         

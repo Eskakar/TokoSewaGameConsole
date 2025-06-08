@@ -51,7 +51,7 @@ public class LoginDAO {
         String query = "SELECT * FROM admin WHERE nama = ? AND sandi = ?";
         
         try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(query)) {
+            PreparedStatement pstmt = connection.prepareStatement(query)) {
             pstmt.setString(1, username);
             pstmt.setString(2, password);
             

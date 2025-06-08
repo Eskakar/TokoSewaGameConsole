@@ -4,6 +4,8 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Anzio
@@ -51,7 +53,6 @@ public class Input_Pembayaran_A extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(520, 500));
         setMinimumSize(new java.awt.Dimension(520, 500));
-        setPreferredSize(new java.awt.Dimension(520, 500));
 
         jPanel1.setMaximumSize(new java.awt.Dimension(800, 500));
         jPanel1.setMinimumSize(new java.awt.Dimension(800, 500));
@@ -183,6 +184,9 @@ public class Input_Pembayaran_A extends javax.swing.JFrame {
                 new Input_Pembayaran_A().setVisible(true);
             }
         });
+    }
+    public void showMessage(String message) {
+        JOptionPane.showMessageDialog(this, message);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

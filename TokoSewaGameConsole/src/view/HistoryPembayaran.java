@@ -4,6 +4,8 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Anzio
@@ -156,6 +158,9 @@ public class HistoryPembayaran extends javax.swing.JFrame {
                 new HistoryPembayaran().setVisible(true);
             }
         });
+    }
+    public void showMessage(String message) {
+        JOptionPane.showMessageDialog(this, message);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

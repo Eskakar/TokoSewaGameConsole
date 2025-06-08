@@ -4,8 +4,8 @@
  */
 package view;
 
-import model.SubsDAO;
-import model.SubsModel;
+import model.BerlanggananDAO;
+import model.BerlanggananModel;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,13 +17,13 @@ import javax.swing.JOptionPane;
  */
 public class AddSubscriptionForm extends javax.swing.JDialog {
     
-    private SubsDAO subsDAO;
+    private BerlanggananDAO subsDAO;
     private SimpleDateFormat dateFormat;
 
     /**
      * Creates new form AddSubscriptionForm
      */
-    public AddSubscriptionForm(java.awt.Frame parent, boolean model, SubsDAO subsDAO) {
+    public AddSubscriptionForm(java.awt.Frame parent, boolean model, BerlanggananDAO subsDAO) {
         super(parent, model);
         this.subsDAO = subsDAO;
         this.dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -200,7 +200,7 @@ public class AddSubscriptionForm extends javax.swing.JDialog {
         if (validateInput()) {
             try {
                 // Buat object subscription baru
-                SubsModel subscription = new SubsModel();
+                BerlanggananModel subscription = new BerlanggananModel();
                 subscription.setKtp(txtKTP.getText().trim());
                 subscription.setNama(txtNama.getText().trim());
                 subscription.setStatus(cmbStatus.getSelectedItem().toString());

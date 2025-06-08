@@ -4,7 +4,7 @@
  */
 package view;
 
-import model.GudangDAO;
+import model.ConsoleDAO;
 import model.ConsoleModel;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class Gudang extends javax.swing.JFrame {
 
-    private GudangDAO gudangDAO;
+    private ConsoleDAO gudangDAO;
     private DefaultTableModel tableModel;
     /**
      * Creates new form Gudang
@@ -27,7 +27,7 @@ public class Gudang extends javax.swing.JFrame {
     public Gudang() {
         try {
             // Inisialisasi gudangDAO SEBELUM initComponents()
-            gudangDAO = new GudangDAO();
+            gudangDAO = new ConsoleDAO();
             initComponents();
             setupTable();
             loadConsoleData();
@@ -70,7 +70,7 @@ public class Gudang extends javax.swing.JFrame {
             // Null check untuk gudangDAO
             if (gudangDAO == null) {
                 System.err.println("GudangDAO is null, reinitializing...");
-                gudangDAO = new GudangDAO();
+                gudangDAO = new ConsoleDAO();
             }
             
             List<ConsoleModel> consoles = gudangDAO.getAllConsoles();
@@ -331,6 +331,9 @@ public class Gudang extends javax.swing.JFrame {
                 new Gudang().setVisible(true);
             }
         });
+    }
+    public void showMessage(String message) {
+        JOptionPane.showMessageDialog(this, message);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
