@@ -56,7 +56,8 @@ public class SubsDAO {
     public boolean addSubscription(SubsModel subscription) {
         String sql = "INSERT INTO berlangganan (KTP, Nama, status, tanggal_expired) VALUES (?, ?, ?, ?)";
         
-        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);) {
             pstmt.setString(1, subscription.getKtp());
             pstmt.setString(2, subscription.getNama());
             pstmt.setString(3, subscription.getStatus());
@@ -78,7 +79,8 @@ public class SubsDAO {
     public boolean updateSubscription(SubsModel subscription) {
         String sql = "UPDATE berlangganan SET Nama = ?, status = ?, tanggal_expired = ? WHERE KTP = ?";
         
-        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);) {
             pstmt.setString(1, subscription.getNama());
             pstmt.setString(2, subscription.getStatus());
             pstmt.setDate(3, new java.sql.Date(subscription.getTanggalExpired().getTime()));
@@ -100,7 +102,8 @@ public class SubsDAO {
     public boolean deleteSubscription(String ktp) {
         String sql = "DELETE FROM berlangganan WHERE KTP = ?";
         
-        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);) {
             pstmt.setString(1, ktp);
             
             int rowsAffected = pstmt.executeUpdate();
