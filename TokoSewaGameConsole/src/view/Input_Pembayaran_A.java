@@ -4,6 +4,7 @@
  */
 package view;
 
+import controller.AdminController;
 import javax.swing.JOptionPane;
 
 /**
@@ -11,7 +12,7 @@ import javax.swing.JOptionPane;
  * @author Anzio
  */
 public class Input_Pembayaran_A extends javax.swing.JFrame {
-
+    private AdminController adminControl;
     /**
      * Creates new form Input_Pembayaran_A
      */
@@ -187,6 +188,9 @@ public class Input_Pembayaran_A extends javax.swing.JFrame {
     }
     public void showMessage(String message) {
         JOptionPane.showMessageDialog(this, message);
+    }
+        public void setController(AdminController controller) {
+        this.adminControl = controller;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

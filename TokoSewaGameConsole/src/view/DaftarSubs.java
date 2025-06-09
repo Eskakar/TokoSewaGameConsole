@@ -4,12 +4,14 @@
  */
 package view;
 
+import controller.AdminController;
+
 /**
  *
  * @author Anzio
  */
 public class DaftarSubs extends javax.swing.JFrame {
-
+    private AdminController adminControl;
     /**
      * Creates new form Subscriptions
      */
@@ -32,7 +34,6 @@ public class DaftarSubs extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(500, 500));
         setMinimumSize(new java.awt.Dimension(500, 500));
-        setPreferredSize(new java.awt.Dimension(500, 500));
 
         jPanel1.setMaximumSize(new java.awt.Dimension(500, 500));
         jPanel1.setMinimumSize(new java.awt.Dimension(500, 500));
@@ -90,7 +91,9 @@ public class DaftarSubs extends javax.swing.JFrame {
             }
         });
     }
-
+    public void setController(AdminController controller) {
+        this.adminControl = controller;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

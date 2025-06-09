@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import model.AdminModel;
 import model.BerlanggananDAO;
 import model.BerlanggananModel;
+import view.AddSubscriptionForm;
 import view.EditSubscriptionForm;
 
 /**
@@ -16,7 +17,9 @@ import view.EditSubscriptionForm;
  */
 public class BerlanggananController {
     private BerlanggananDAO subsDAO;
+    private BerlanggananModel subsModel;
     private AdminModel currentAdmin;
+    private AddSubscriptionForm viewAddSubs;
     private EditSubscriptionForm editSubsView;
     public BerlanggananController(AdminModel admModel){
         this.currentAdmin = admModel;
@@ -26,7 +29,14 @@ public class BerlanggananController {
     public ArrayList loadBerlanggananList() {
        return subsDAO.getAllSubscriptions();
     }
-
+    public void addSubs(BerlanggananModel berModel){
+        boolean menambahkan = subsDAO.updateSubscription(berModel);
+        if(menambahkan == false){
+            viewAddSubs.showMessage("Gagal Menambahkan Berlangganan");
+        }else{
+            viewAddSubs.showMessage("Berhasil Menambahkan Berlangganan");
+        }
+    }
     public void updateSubscription(String KTP, String newStatus) {
         if(currentAdmin == null){
             editSubsView.showMessage("login dulu");

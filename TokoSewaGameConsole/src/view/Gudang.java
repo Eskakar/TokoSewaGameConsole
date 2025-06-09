@@ -4,6 +4,7 @@
  */
 package view;
 
+import controller.AdminController;
 import model.ConsoleDAO;
 import model.ConsoleModel;
 import javax.swing.*;
@@ -18,7 +19,7 @@ import java.util.List;
  * @author Anzio
  */
 public class Gudang extends javax.swing.JFrame {
-
+    private AdminController adminControl;
     private ConsoleDAO gudangDAO;
     private DefaultTableModel tableModel;
     /**
@@ -334,6 +335,9 @@ public class Gudang extends javax.swing.JFrame {
     }
     public void showMessage(String message) {
         JOptionPane.showMessageDialog(this, message);
+    }
+    public void setController(AdminController controller) {
+        this.adminControl = controller;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

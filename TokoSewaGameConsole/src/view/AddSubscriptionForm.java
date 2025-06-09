@@ -228,7 +228,9 @@ public class AddSubscriptionForm extends javax.swing.JDialog {
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         clearFields();
     }//GEN-LAST:event_btnResetActionPerformed
-
+    public void showMessage(String message) {
+        JOptionPane.showMessageDialog(this, message);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBatal;
     private javax.swing.JButton btnReset;

@@ -125,7 +125,7 @@ public class LoginDAO {
             ResultSet rs = stmt.executeQuery();
             
             if (rs.next()) {
-                AdminModel adminModel = new AdminModel();
+                AdminModel adminModel = new AdminModel(0,null,null);
                 adminModel.setId(rs.getInt("id"));
                 adminModel.setNama(rs.getString("nama"));
                 adminModel.setSandi(rs.getString("sandi"));               

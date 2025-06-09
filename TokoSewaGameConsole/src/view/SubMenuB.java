@@ -4,12 +4,14 @@
  */
 package view;
 
+import controller.AdminController;
+
 /**
  *
  * @author Anzio
  */
 public class SubMenuB extends javax.swing.JFrame {
-
+     private AdminController adminControl;
     /**
      * Creates new form Admin
      */
@@ -185,7 +187,9 @@ public class SubMenuB extends javax.swing.JFrame {
             }
         });
     }
-
+    public void setController(AdminController controller) {
+        this.adminControl = controller;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

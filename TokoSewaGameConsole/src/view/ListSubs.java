@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
+import controller.AdminController;
+import controller.BerlanggananController;
 import model.BerlanggananDAO;
 import model.BerlanggananModel;
 import java.text.SimpleDateFormat;
@@ -17,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 public class ListSubs extends javax.swing.JFrame {
     private BerlanggananDAO subsDAO;
     private DefaultTableModel tableModel;
+    private AdminController adminControl;
     /**
      * Creates new form ListSubs
      */
@@ -24,7 +27,7 @@ public class ListSubs extends javax.swing.JFrame {
         initComponents();
         initializeTable();
         subsDAO = new BerlanggananDAO();
-        loadSubscriptionData();
+
     }
 
     /**
@@ -51,21 +54,24 @@ public class ListSubs extends javax.swing.JFrame {
         // Bersihkan tabel terlebih dahulu
         tableModel.setRowCount(0);
         
-        List<BerlanggananModel> subscriptions = subsDAO.getAllSubscriptions();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        
-        for (BerlanggananModel sub : subscriptions) {
-            Object[] rowData = {
-                sub.getKtp(),
-                sub.getNama(),
-                sub.getStatus(),
-                sub.getTanggalExpired() != null ? dateFormat.format(sub.getTanggalExpired()) : ""
-            };
-            tableModel.addRow(rowData);
+        List<BerlanggananModel> subscriptions =  adminControl.loadSubs();
+        if(subscriptions != null){
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+            for (BerlanggananModel sub : subscriptions) {
+                Object[] rowData = {
+                    sub.getKtp(),
+                    sub.getNama(),
+                    sub.getStatus(),
+                    sub.getTanggalExpired() != null ? dateFormat.format(sub.getTanggalExpired()) : ""
+                };
+                tableModel.addRow(rowData);
+            }
+
+            // Update jumlah data di label
+            jLabel1.setText("List Subs (" + subscriptions.size() + " data)");
         }
         
-        // Update jumlah data di label
-        jLabel1.setText("List Subs (" + subscriptions.size() + " data)");
     }
      
             
@@ -244,6 +250,10 @@ public class ListSubs extends javax.swing.JFrame {
                 new ListSubs().setVisible(true);
             }
         });
+    }
+    public void setController(AdminController controller) {
+        this.adminControl = controller;
+        loadSubscriptionData();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -4,6 +4,7 @@
  */
 package view;
 
+import controller.AdminController;
 import javax.swing.JOptionPane;
 
 /**
@@ -11,7 +12,7 @@ import javax.swing.JOptionPane;
  * @author Anzio
  */
 public class HistoryPembayaran extends javax.swing.JFrame {
-
+    private AdminController adminControl;
     /**
      * Creates new form HistoryPembayaran
      */
@@ -161,6 +162,9 @@ public class HistoryPembayaran extends javax.swing.JFrame {
     }
     public void showMessage(String message) {
         JOptionPane.showMessageDialog(this, message);
+    }
+    public void setController(AdminController controller) {
+        this.adminControl = controller;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

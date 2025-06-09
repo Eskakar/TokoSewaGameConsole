@@ -4,6 +4,7 @@
  */
 package view;
 
+import controller.AdminController;
 import model.LoginDAO;
 import javax.swing.JOptionPane;
 import view.AdminView;
@@ -14,23 +15,22 @@ import view.AdminView;
  */
 public class Login extends javax.swing.JFrame {
     private LoginDAO loginDAO;
+    private AdminController adminControl;
+    private boolean check;
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
-        initializeDAO();
+
     }
 
-    private void initializeDAO() {
-        try {
-            loginDAO = new LoginDAO();
-        } catch (Exception e) {
-            System.err.println("Error initializing CustomerDAO: " + e.getMessage());
-            JOptionPane.showMessageDialog(this, "Error koneksi database: " + e.getMessage(), 
-                                        "Database Error", JOptionPane.ERROR_MESSAGE);
+    private void CheckConnectDB() {
+        check = adminControl.checkConnDB();
+        if(check == false){
+            this.dispose();
         }
-    }   
+    } 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -158,8 +158,8 @@ public class Login extends javax.swing.JFrame {
         
         try {
             // Check login credentials using LoginDAO
-            String userRole = loginDAO.authenticateUser(username, password);
-            
+            String userRole = adminControl.authenticateUser(username, password);
+            //String userRole = adminControl.authenticateUser(username, password);
             if (userRole != null) {
                 // tesLogin successful
                 JOptionPane.showMessageDialog(this, 
@@ -172,9 +172,6 @@ public class Login extends javax.swing.JFrame {
                     m.pack();
                 
                 this.dispose();
-                
-
-                
             } else {
                 // tesLogin failed
                 JOptionPane.showMessageDialog(this, 
@@ -234,6 +231,10 @@ public class Login extends javax.swing.JFrame {
     }
     public void showMessage(String message) {
         JOptionPane.showMessageDialog(this, message);
+    }
+    public void setController(AdminController controller) {
+        this.adminControl = controller;
+        CheckConnectDB();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
