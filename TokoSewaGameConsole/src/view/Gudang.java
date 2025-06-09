@@ -4,6 +4,7 @@
  */
 package view;
 
+
 import controller.AdminController;
 import model.ConsoleDAO;
 import model.ConsoleModel;
@@ -291,6 +292,11 @@ public class Gudang extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+    Menu m = new Menu();
+        m.setVisible(true);
+    
+    // Menutup form saat ini (optional)
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

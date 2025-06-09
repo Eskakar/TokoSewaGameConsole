@@ -8,6 +8,7 @@
  * @author Anzio
  */
 
+
 import model.AdminModel;
 import controller.*;
 import view.*;
@@ -21,7 +22,7 @@ public class Main {
             DaftarSubs dafView = new DaftarSubs();
             Gudang gudangView = new Gudang();
             HistoryPembayaran historyView = new HistoryPembayaran();
-            Input_Pembayaran_A inputPemView = new Input_Pembayaran_A();
+            Input_Pembayaran_A inputPemView = new Input_Pembayaran_A(0);
             ListSubs listSubsView = new ListSubs();
             List_Console_A listconsole = new List_Console_A();
             Menu menu = new Menu();
