@@ -106,4 +106,7 @@ public class PembayaranController {
             hisView.showMessage("Gagal memperbarui status pembayaran.");
         }
     }
+    public void setAdminModel(AdminModel model){
+        this.currentAdmin = model;
+    }
 }

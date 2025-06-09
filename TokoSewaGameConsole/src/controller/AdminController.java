@@ -20,143 +20,75 @@ import view.Login;
 public class AdminController {
     private AdminModel modelAdmin;
     private AdminView view;
+    private LoginDAO loginDAO;
+    private Login login;
+    private String statusLogin;
+    
+    //bikin object dari tiap controller
+    private BerlanggananController berlanggananControl;
+    private ConsoleController consoleControl;
+    private DiskonController diskonControl;
+    private PembayaranController pembayaranControl;
     
     public AdminController(){
-        this.modelAdmin = new AdminModel();
+        //this.modelAdmin = new AdminModel();
     }
-    public AdminController(AdminModel modelA, AdminView viewA) {
-        this.modelAdmin = modelA;
+    public AdminController(AdminView viewA) {
+        this.modelAdmin = new AdminModel();
+        berlanggananControl = new BerlanggananController(this.modelAdmin);
+        consoleControl = new ConsoleController(modelAdmin);
+        diskonControl = new DiskonController(modelAdmin);
+        pembayaranControl = new PembayaranController(modelAdmin);
         this.view = viewA;
         viewA.setController(this);
-        loadInitialData();
+        //loadInitialData();
+    }
+    private void loadAdminModelController(){
+        berlanggananControl.setAdminModel(modelAdmin);
+        consoleControl.setAdminModel(modelAdmin);
+        diskonControl.setAdminModel(modelAdmin);
+        pembayaranControl.setAdminModel(modelAdmin);
     }
 
-    private void loadInitialData() {
+    /*private void loadInitialData() {
         loadPembayaranList();
         loadConsoleList();
         loadDiskonList();
         loadBerlanggananList();
     }
-
-    // ===== PEMBAYARAN =====
-    public ArrayList loadPembayaranList() {
-        ArrayList<PembayaranModel> pembayaranList = model.getAllPembayaran();
-        return pembayaranList;
+    */
+    //===========================================
+    //A.Login 
+    //1. Check connection
+    public boolean checkConnDB(){
+       if( loginDAO.isConnectionValid()){
+           return true;
+       }else{
+           login.showMessage("Koneksi Error");
+           return false;
+       }
     }
-
+    //2. check kredential Admin dan set modelAdmin
+    public String authenticateUser(String username, String password){
+        statusLogin = loginDAO.authenticateUser(username, password);
+        if(statusLogin == "admin"){
+            this.modelAdmin =loginDAO.getAdminByUsername(username);
+            loadAdminModelController();
+        }
+        return statusLogin;
+    }
+    //B.Pembayaran
+    //1.ambl semua data berlangganan --untuk History pembayaran
+    public void loadDataPembayaran(){
+        pembayaranControl.loadPembayaranList();
+        //dikasih fungsi penampilan sesuai view yang dipakai dihubunin dengan pembayaran Control
+    }
+    //2.upload data pembayaran ke DB --untuk input pembayaran view
     public void addPembayaran(int fk_admin, int fk_console, String KTP, String nama_pelanggan,
-                              int lama_peminjaman, String kodeDiskon) {
-
-        // Step 1: Ambil data console berdasarkan ID
-        ConsoleModel console = model.getConsoleById(fk_console);
-        if (console == null) {
-            view.showMessage("Console tidak ditemukan.");
-            return;
-        }else if(console.getStock() == 0){
-            view.showMessage("Console Kehabisan Stock");
-            return;
-        }
-
-        BigDecimal hargaDasar = console.getHarga();
-        //perkalian Bigdecimal dan int
-        BigDecimal totalHarga = hargaDasar.multiply(BigDecimal.valueOf(lama_peminjaman));
-
-        // Step 2: Cek diskon dari kode diskon jika ada
-        if (kodeDiskon != null && !kodeDiskon.isEmpty()) {
-            ArrayList<DiskonModel> diskons = model.getAllDiskon();
-            for (DiskonModel d : diskons) {
-                if (d.getKodeUnik().equalsIgnoreCase(kodeDiskon)) {
-                    BigDecimal potongan = (totalHarga.multiply(BigDecimal.valueOf(d.getDiskon()))).divide(BigDecimal.valueOf(100));
-                    totalHarga = totalHarga.subtract(potongan); //pengurangan harga;
-                    break;
-                }
-            }
-        }
-
-        // Step 3: Cek apakah pelanggan berlangganan
-        ArrayList<BerlanggananModel> langganans = model.readAllBerlangganan();
-        for (BerlanggananModel b : langganans) {
-            if (b.getKtp().equals(KTP) && b.getStatus().equalsIgnoreCase("Aktif")) {
-                BigDecimal potongan = new BigDecimal("0.2");
-                // Isi otomatis nama
-                nama_pelanggan = b.getNama();
-                // DiskonModel tambahan 20%
-                totalHarga = totalHarga.subtract(totalHarga.multiply(potongan));
-                break;
-            }
-        }
-
-        // Step 4: Tambahkan transaksi
-        boolean success = model.addTransaksi(fk_admin, fk_console, KTP, nama_pelanggan, lama_peminjaman, totalHarga, "Belum Dikembalikan");
-        if (success) {
-            view.showMessage("Pembayaran berhasil ditambahkan!");
-            loadPembayaranList();
-        } else {
-            view.showMessage("Gagal menambahkan pembayaran.");
-        }
+                              int lama_peminjaman, String kodeDiskon){
+        //fungsi untuk pop up setelah confirm pembarana, lalu ada detail semua pembayaran dan total harga
+        addPembayaran(fk_admin,  fk_console, KTP, nama_pelanggan,lama_peminjaman,  kodeDiskon);      
     }
-
-    public void updatePembayaranStatus(int id, Date tanggal) {
-        if (model.updatePembayaran(id, tanggal)) {
-            view.showMessage("Status pembayaran berhasil diperbarui!");
-            loadPembayaranList();
-        } else {
-            view.showMessage("Gagal memperbarui status pembayaran.");
-        }
-    }
-
-    // ===== CONSOLE =====
-    public ArrayList loadConsoleList() { //jika perlu untuk ambil data semua console
-        ArrayList<ConsoleModel> consoleList = model.getAllConsoles();
-        return consoleList;
-        
-    }
-
-    public void addConsole(String nama, String deskripsi, int stock, int harga) {
-        if (model.addConsole(nama, deskripsi, stock, harga)) {
-            view.showMessage("Console berhasil ditambahkan!");
-            loadConsoleList();
-        } else {
-            view.showMessage("Gagal menambahkan console.");
-        }
-    }
-
-    public void updateConsole(int id, String nama, String deskripsi, int stock, int harga) {
-        if (model.updateConsole(id, stock)) {
-            view.showMessage("Console berhasil diperbarui!");
-            loadConsoleList();
-        } else {
-            view.showMessage("Gagal memperbarui console.");
-        }
-    }
-    /* jika perlu
-    public void deleteConsole(int id) {
-        if (model.deleteConsole(id)) {
-            view.showMessage("Console berhasil dihapus!");
-            loadConsoleList();
-        } else {
-            view.showMessage("Gagal menghapus console.");
-        }
-    }*/
-
-    // ===== DISKON =====
-    public void loadDiskonList() {
-        ArrayList<DiskonModel> diskonList = model.getAllDiskon(); // jika perlu
-        //view.showDiskonList(diskonList);
-    }
-
-    // ===== BERLANGGANAN =====
-    public ArrayList loadBerlanggananList() {
-        ArrayList<BerlanggananModel> berlanggananList = model.readAllBerlangganan();
-       return berlanggananList;
-    }
-
-    public void updateStatusBerlangganan(String KTP, String newStatus) {
-        if (model.updateStatusBerlangganan(KTP, newStatus)) {
-            view.showMessage("Status berlangganan berhasil diperbarui!");
-            loadBerlanggananList();
-        } else {
-            view.showMessage("Gagal memperbarui status berlangganan.");
-        }
-    }
+    
+    
 }

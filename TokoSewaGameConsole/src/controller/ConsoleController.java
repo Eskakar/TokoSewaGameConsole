@@ -60,4 +60,8 @@ public class ConsoleController {
             view.showMessage("Belum Login");
         }
     }
+    
+    public void setAdminModel(AdminModel model){
+        this.currentAdmin = model;
+    }
 }

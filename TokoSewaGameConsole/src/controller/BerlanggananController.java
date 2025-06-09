@@ -15,7 +15,6 @@ import view.EditSubscriptionForm;
  * @author ASUS
  */
 public class BerlanggananController {
-    
     private BerlanggananDAO subsDAO;
     private AdminModel currentAdmin;
     private EditSubscriptionForm editSubsView;
@@ -47,5 +46,19 @@ public class BerlanggananController {
         } else {
             editSubsView.showMessage("Gagal memperbarui status berlangganan.");
         }
+    }
+    public BerlanggananModel getSubsByKTP(String ktp){
+        if(currentAdmin == null){
+            editSubsView.showMessage("login dulu");
+            return null;
+        }else if (ktp != null) {
+            return subsDAO.getSubscriptionByKTP(ktp);
+        } else {
+            editSubsView.showMessage("tidak terdapat data");
+            return null;
+        }
+    }
+    public void setAdminModel(AdminModel model){
+        this.currentAdmin = model;
     }
 }

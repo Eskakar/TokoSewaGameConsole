@@ -77,6 +77,7 @@ public class LoginDAO {
      * @param username Username admin
      * @return ResultSet dengan data admin
      */
+    /*
     public ResultSet getAdminByUsername(String username) {
         try {
             String query = "SELECT * FROM admin WHERE nama = ?";
@@ -88,7 +89,7 @@ public class LoginDAO {
             System.err.println("Error getting admin data: " + e.getMessage());
             return null;
         }
-    }
+    }*/
     
     /**
      * Close database connection
@@ -113,6 +114,30 @@ public class LoginDAO {
         } catch (SQLException e) {
             return false;
         }
+    }
+    public AdminModel getAdminByUsername(String nama) {
+        String query = "SELECT * FROM admin WHERE nama = ?";
+        
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            
+            stmt.setString(1, nama);
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                AdminModel adminModel = new AdminModel();
+                adminModel.setId(rs.getInt("id"));
+                adminModel.setNama(rs.getString("nama"));
+                adminModel.setSandi(rs.getString("sandi"));               
+                return adminModel;
+            }
+            
+        } catch (SQLException e) {
+            System.err.println("Error retrieving admin by nama: " + e.getMessage());
+            e.printStackTrace();
+        }
+        
+        return null;
     }
 }
 

@@ -18,15 +18,19 @@ import java.util.ArrayList;
  */
 // Inner class untuk data Admin
 public  class AdminModel {
-        private int id;
-        private String nama;
-        private String sandi;
+    private int id;
+    private String nama;
+    private String sandi;
 
-        public AdminModel(int id, String nama, String sandi) {
-            this.id = id;
-            this.nama = nama;
-            this.sandi = sandi;
-        }
+    public AdminModel(int id, String nama, String sandi) {
+        this.id = id;
+        this.nama = nama;
+        this.sandi = sandi;
+    }
+
+    public AdminModel() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
         // Getter
         public int getId() {

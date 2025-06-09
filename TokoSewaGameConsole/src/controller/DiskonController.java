@@ -25,4 +25,7 @@ public class DiskonController {
         ArrayList<DiskonModel> diskonList = diskonDAO.getAllDiskon(); // jika perlu
         return diskonList;
     }
+    public void setAdminModel(AdminModel model){
+        this.currentAdmin = model;
+    }
 }

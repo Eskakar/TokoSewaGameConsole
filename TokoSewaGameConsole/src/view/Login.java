@@ -232,6 +232,9 @@ public class Login extends javax.swing.JFrame {
         /* Create and display the form */
         
     }
+    public void showMessage(String message) {
+        JOptionPane.showMessageDialog(this, message);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
