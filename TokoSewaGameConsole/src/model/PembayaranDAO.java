@@ -97,5 +97,34 @@ public class PembayaranDAO {
             return false;
         }
     }
-    
+     public PembayaranModel getPembayaranById(int id) {
+        try {
+            Connection conn = DatabaseConnection.getConnection();
+            String sql = "SELECT * FROM pembayaran WHERE id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                PembayaranModel p = new PembayaranModel();
+                p.setId(rs.getInt("id"));
+                p.setFk_admin(rs.getInt("fk_admin"));
+                p.setFk_console(rs.getInt("fk_console"));
+                p.setKTP(rs.getString("ktp"));
+                p.setNama_pelanggan(rs.getString("nama_pelanggan"));
+                p.setTanggal_pembayaran(rs.getDate("tanggal_pembayaran"));
+                p.setLama_peminjaman(rs.getInt("lama_peminjaman"));
+                p.setTotal_harga(rs.getInt("total_harga"));
+                p.setTanggal_expired(rs.getDate("tanggal_expired"));
+                
+                String status = rs.getString("status_console");
+                p.setStatus_console(status != null ? status : "Dipinjam");
+                
+                return p;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

@@ -19,15 +19,18 @@ public class PembayaranModel {
     private String nama_pelanggan;
     private Date tanggal_pembayaran;
     private int lama_peminjaman;
-    private Date tanggal_pengembalian;
+    private Date tanggal_sudah_kembali;
     private int total_harga;
     private String status_console;
     private Date tanggal_expired;
 
-    // Constructor dengan parameter
-    public PembayaranModel(int id, int fk_admin, int fk_console, String KTP, String nama_pelanggan,
-                      Date tanggal_pembayaran, int lama_peminjaman, int total_harga,
-                      Date tanggal_expired) {
+    // Default constructor
+    public PembayaranModel() {
+    }
+
+    // Constructor with parameters
+    public PembayaranModel(int id, int fk_admin, int fk_console, String KTP, String nama_pelanggan, 
+                          Date tanggal_pembayaran, int lama_peminjaman, int total_harga, Date tanggal_expired) {
         this.id = id;
         this.fk_admin = fk_admin;
         this.fk_console = fk_console;
@@ -35,13 +38,29 @@ public class PembayaranModel {
         this.nama_pelanggan = nama_pelanggan;
         this.tanggal_pembayaran = tanggal_pembayaran;
         this.lama_peminjaman = lama_peminjaman;
-        this.tanggal_pengembalian = null;
         this.total_harga = total_harga;
-        this.status_console = "Belum Dikembalikan";
+        this.tanggal_expired = tanggal_expired;
+        this.status_console = "Dipinjam"; // Default status
+    }
+
+    // Full constructor
+    public PembayaranModel(int id, int fk_admin, int fk_console, String KTP, String nama_pelanggan, 
+                          Date tanggal_pembayaran, int lama_peminjaman, Date tanggal_sudah_kembali, 
+                          int total_harga, String status_console, Date tanggal_expired) {
+        this.id = id;
+        this.fk_admin = fk_admin;
+        this.fk_console = fk_console;
+        this.KTP = KTP;
+        this.nama_pelanggan = nama_pelanggan;
+        this.tanggal_pembayaran = tanggal_pembayaran;
+        this.lama_peminjaman = lama_peminjaman;
+        this.tanggal_sudah_kembali = tanggal_sudah_kembali;
+        this.total_harga = total_harga;
+        this.status_console = status_console;
         this.tanggal_expired = tanggal_expired;
     }
 
-    // Getter dan Setter
+    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -98,12 +117,12 @@ public class PembayaranModel {
         this.lama_peminjaman = lama_peminjaman;
     }
 
-    public Date getTanggal_pengembalian() {
-        return tanggal_pengembalian;
+    public Date getTanggal_sudah_kembali() {
+        return tanggal_sudah_kembali;
     }
 
-    public void setTanggal_pengembalian(Date tanggal_pengembalian) {
-        this.tanggal_pengembalian = tanggal_pengembalian;
+    public void setTanggal_sudah_kembali(Date tanggal_sudah_kembali) {
+        this.tanggal_sudah_kembali = tanggal_sudah_kembali;
     }
 
     public int getTotal_harga() {
@@ -130,10 +149,9 @@ public class PembayaranModel {
         this.tanggal_expired = tanggal_expired;
     }
 
-    // Override toString
     @Override
     public String toString() {
-        return "Pembayaran{" +
+        return "PembayaranModel{" +
                 "id=" + id +
                 ", fk_admin=" + fk_admin +
                 ", fk_console=" + fk_console +
@@ -141,11 +159,10 @@ public class PembayaranModel {
                 ", nama_pelanggan='" + nama_pelanggan + '\'' +
                 ", tanggal_pembayaran=" + tanggal_pembayaran +
                 ", lama_peminjaman=" + lama_peminjaman +
-                ", tanggal_pengembalian=" + tanggal_pengembalian +
+                ", tanggal_sudah_kembali=" + tanggal_sudah_kembali +
                 ", total_harga=" + total_harga +
                 ", status_console='" + status_console + '\'' +
                 ", tanggal_expired=" + tanggal_expired +
                 '}';
     }
 }
-

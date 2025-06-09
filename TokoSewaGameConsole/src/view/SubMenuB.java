@@ -120,9 +120,9 @@ public class SubMenuB extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
-    //DaftarSubs ds = new DaftarSubs();
-    //ds.setVisible(true);
+    //kembali DaftarSubs   
+    DaftarSubs ds = new DaftarSubs();
+    ds.setVisible(true);
     
     // Menutup form saat ini (optional)
         this.dispose();
@@ -130,6 +130,7 @@ public class SubMenuB extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+    //Ke ListSubs
     ListSubs ls = new ListSubs();
     ls.setVisible(true);
     
@@ -139,6 +140,7 @@ public class SubMenuB extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+    //Kembali ke Menu
         Menu m = new Menu();
         m.setVisible(true);
     

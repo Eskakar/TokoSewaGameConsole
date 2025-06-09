@@ -175,6 +175,7 @@ public class ListSubs extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+    //Edit List Subs
     BerlanggananModel selectedSub = getSelectedSubscription();
         if (selectedSub != null) {
             // Buka form edit subscription
@@ -189,6 +190,7 @@ public class ListSubs extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+    //Kembali ke SubMenuB
         SubMenuB sm = new SubMenuB();
         sm.setVisible(true);
     
@@ -198,6 +200,7 @@ public class ListSubs extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+    //hapus ListSubs
     BerlanggananModel selectedSub = getSelectedSubscription();
         if (selectedSub != null) {
             int confirm = JOptionPane.showConfirmDialog(
