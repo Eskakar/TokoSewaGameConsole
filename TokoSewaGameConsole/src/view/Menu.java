@@ -11,7 +11,7 @@ import controller.AdminController;
  * @author Anzio
  */
 public class Menu extends javax.swing.JFrame {
-    private AdminController adminControl;
+    private AdminController adminControlMenu;
     /**
      * Creates new form Menu
      */
@@ -142,9 +142,9 @@ public class Menu extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-    //Menuju Gudang
-    Gudang stock = new Gudang();
-         stock.setVisible(true);
+        //Menuju Gudang
+        Gudang stock = adminControlMenu.getGudangView();
+        stock.setVisible(true);
     
     // Menutup form saat ini (optional)
         this.dispose();
@@ -154,7 +154,7 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         
     //Menuju SubMenuB
-    SubMenuB smb = new SubMenuB();
+    SubMenuB smb = adminControlMenu.getSubMenuBView();
         smb.setVisible(true);
     
     // Menutup form saat ini (optional)
@@ -168,7 +168,7 @@ public class Menu extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     //Menuju SubMenuA
-        SubMenuA sma = new SubMenuA();
+        SubMenuA sma = adminControlMenu.getSubMenuAView();
         sma.setVisible(true);
     
     // Menutup form saat ini (optional)
@@ -176,12 +176,11 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-        
-        //Log Out
 
+        //Log Out
         // Menutup form saat ini (optional)
         this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
@@ -219,7 +218,7 @@ public class Menu extends javax.swing.JFrame {
         });
     }
     public void setController(AdminController controller) {
-        this.adminControl = controller;
+        this.adminControlMenu = controller;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

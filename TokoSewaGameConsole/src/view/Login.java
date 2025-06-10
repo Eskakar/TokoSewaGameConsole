@@ -157,41 +157,27 @@ public class Login extends javax.swing.JFrame {
             return;
         }
         
-        try {
-            // Check login credentials using LoginDAO
-            String userRole = adminControl.authenticateUser(username, password);
-            //String userRole = adminControl.authenticateUser(username, password);
-            if (userRole != null) {
-                // tesLogin successful
-                JOptionPane.showMessageDialog(this, 
-                    "Login berhasil! Selamat datang, " + username, 
-                    "Login Success", 
-                    JOptionPane.INFORMATION_MESSAGE);
-                    
-                    Menu m = new Menu();
-                    m.setVisible(true);
-                    m.pack();
-                
-                this.dispose();
-            } else {
-                // tesLogin failed
-                JOptionPane.showMessageDialog(this, 
+        // Check login credentials using LoginDAO
+        String userRole = adminControl.authenticateUser(username, password);
+        //String userRole = adminControl.authenticateUser(username, password);
+        if (userRole != null) {
+        // tesLogin successful
+        JOptionPane.showMessageDialog(this, 
+                "Login berhasil! Selamat datang, " + username, 
+                "Login Success",JOptionPane.INFORMATION_MESSAGE);
+            Menu m = adminControl.getMenuView();
+            m.setVisible(true);
+            m.pack();
+            this.dispose();
+        } else {
+            // tesLogin failed
+            JOptionPane.showMessageDialog(this, 
                     "Username atau Password salah!", 
                     "Login Failed", 
                     JOptionPane.ERROR_MESSAGE);
-                
-                // Clear password field for security
-                jPasswordField1.setText("");
-                jPasswordField1.requestFocus();
-            }
-            
-        } catch (Exception e) {
-            // Handle database or other errors
-            System.err.println("Login error: " + e.getMessage());
-            JOptionPane.showMessageDialog(this, 
-                "Terjadi kesalahan saat login: " + e.getMessage(), 
-                "System Error", 
-                JOptionPane.ERROR_MESSAGE);
+            // Clear password field for security
+            jPasswordField1.setText("");
+            jPasswordField1.requestFocus();
         }
                  
     }//GEN-LAST:event_jButton1ActionPerformed

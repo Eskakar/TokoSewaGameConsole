@@ -8,6 +8,7 @@ package view;
 import controller.AdminController;
 import java.sql.SQLException;
 import model.*;
+import view.SubMenuB;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -135,6 +136,9 @@ public class DaftarSubs extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        SubMenuB subB = adminControl.getSubMenuBView();
+        subB.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private boolean validateInput() {

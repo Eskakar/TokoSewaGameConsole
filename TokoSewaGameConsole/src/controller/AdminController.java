@@ -1,4 +1,4 @@
-/*
+ /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -46,9 +46,9 @@ public class AdminController {
         this.modelAdmin = new AdminModel(0,null,null);
         this.berlanggananControl = new BerlanggananController(this.modelAdmin);
         this.loginDAO = new LoginDAO();
-        consoleControl = new ConsoleController(modelAdmin);
+        consoleControl = new ConsoleController(modelAdmin,this.gudangView);
         diskonControl = new DiskonController(modelAdmin);
-        pembayaranControl = new PembayaranController(modelAdmin);
+        pembayaranControl = new PembayaranController(modelAdmin,this.inputPemView);
         //set agar menggunakan view yang sudah dibuat di main
         this.dafView = dafView;
         this.gudangView = gudangView;
@@ -61,7 +61,7 @@ public class AdminController {
         this.subA = subA;
         this.subB = subB;
     }
-    private void loadAdminModelController(){
+    private void loadAdminModelController(){//ini belum terload kalau belum login
         berlanggananControl.setAdminModel(modelAdmin);
         consoleControl.setAdminModel(modelAdmin);
         diskonControl.setAdminModel(modelAdmin);
@@ -108,7 +108,7 @@ public class AdminController {
     public void addPembayaran(int fk_admin, int fk_console, String KTP, String nama_pelanggan,
                               int lama_peminjaman, String kodeDiskon){
         //fungsi untuk pop up setelah confirm pembarana, lalu ada detail semua pembayaran dan total harga
-        pembayaranControl.addPembayaran(fk_admin,  fk_console, KTP, nama_pelanggan,lama_peminjaman,  kodeDiskon);     
+        pembayaranControl.addPembayaran( fk_console, KTP, nama_pelanggan,lama_peminjaman,  kodeDiskon);     
         //kasih view pop up pembayaran setlah input pembayaran dan total pembayaran
     }
    //C. subscirption
@@ -120,6 +120,45 @@ public class AdminController {
     public void addSubs(BerlanggananModel berlanggananModel){
         berlanggananControl.addSubs(berlanggananModel);
     }
+    //D.Gudang atau data Console
+    public ArrayList loadConsoleList(){
+        return consoleControl.loadConsoleListGudang();
+    }
+    public boolean addStockGudang(int id, int stock){
+        return consoleControl.addStockGudang(id,stock);
+    }
+    public boolean reduceStockGudang(int id, int stock){
+        return consoleControl.reduceStockGudang(id, stock);
+    }
+    public boolean updateStockGudang(int id, int stock){
+        return consoleControl.updateConsoleGudang(id,stock);
+    }
     
     
+    //========================================================================================
+    //bagian get View
+    public Menu getMenuView(){
+        return this.menu;
+    }
+    public SubMenuA getSubMenuAView(){
+        return this.subA;
+    }
+    public SubMenuB getSubMenuBView(){
+        return this.subB;
+    }
+    public Gudang getGudangView(){
+        return this.gudangView;
+    }
+    public List_Console_A getListConsoleAView(){
+        return this.listconsole;
+    }
+    public HistoryPembayaran getHistoryPembayaranView(){
+        return this.historyView;
+    }
+    public DaftarSubs getDaftarSubsView(){
+        return this.dafView;
+    }
+    public ListSubs getListSubsView(){
+        return this.listSubsView;
+    }
 }

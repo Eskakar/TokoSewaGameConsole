@@ -21,26 +21,14 @@ import java.util.List;
  */
 public class Gudang extends javax.swing.JFrame {
     private AdminController adminControl;
-    private ConsoleDAO gudangDAO;
     private DefaultTableModel tableModel;
     /**
      * Creates new form Gudang
      */
     public Gudang() {
-        try {
-            // Inisialisasi gudangDAO SEBELUM initComponents()
-            gudangDAO = new ConsoleDAO();
-            initComponents();
-            setupTable();
-            loadConsoleData();
-        } catch (Exception e) {
-            System.err.println("Error initializing Gudang: " + e.getMessage());
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, 
-                "Error connecting to database: " + e.getMessage(), 
-                "Database Error", 
-                JOptionPane.ERROR_MESSAGE);
-        }
+        initComponents();
+        setupTable();
+        
     }
     
     private void setupTable() {
@@ -67,15 +55,8 @@ public class Gudang extends javax.swing.JFrame {
     private void loadConsoleData() {
         try {
             // Clear existing data
-            tableModel.setRowCount(0);
-            
-            // Null check untuk gudangDAO
-            if (gudangDAO == null) {
-                System.err.println("GudangDAO is null, reinitializing...");
-                gudangDAO = new ConsoleDAO();
-            }
-            
-            List<ConsoleModel> consoles = gudangDAO.getAllConsoles();
+            tableModel.setRowCount(0);         
+            List<ConsoleModel> consoles = adminControl.loadConsoleList();
             
             if (consoles != null && !consoles.isEmpty()) {
                 for (ConsoleModel console : consoles) {
@@ -215,7 +196,7 @@ public class Gudang extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-    int selectedRow = jTable1.getSelectedRow();
+        int selectedRow = jTable1.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Pilih console yang akan diedit stoknya!", "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
@@ -261,11 +242,11 @@ public class Gudang extends javax.swing.JFrame {
             
             switch (choice) {
                 case 0: // Set stok baru
-                    success = gudangDAO.updateStock(consoleId, stockValue);
+                    success = adminControl.updateStockGudang(consoleId, stockValue);
                     action = "mengubah stok menjadi " + stockValue;
                     break;
                 case 1: // Tambah stok
-                    success = gudangDAO.addStock(consoleId, stockValue);
+                    success = adminControl.addStockGudang(consoleId, stockValue);
                     action = "menambah stok sebanyak " + stockValue;
                     break;
                 case 2: // Kurangi stok
@@ -273,7 +254,7 @@ public class Gudang extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, "Stok tidak mencukupi!\nStok saat ini: " + currentStock, "Error", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
-                    success = gudangDAO.reduceStock(consoleId, stockValue);
+                    success = adminControl.reduceStockGudang(consoleId, stockValue);
                     action = "mengurangi stok sebanyak " + stockValue;
                     break;
             }
@@ -292,7 +273,7 @@ public class Gudang extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-    Menu m = new Menu();
+        Menu m = adminControl.getMenuView();
         m.setVisible(true);
     
     // Menutup form saat ini (optional)
@@ -344,6 +325,7 @@ public class Gudang extends javax.swing.JFrame {
     }
     public void setController(AdminController controller) {
         this.adminControl = controller;
+        loadConsoleData();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

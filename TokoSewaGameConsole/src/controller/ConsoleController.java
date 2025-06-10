@@ -7,7 +7,9 @@ package controller;
 import java.util.ArrayList;
 import model.AdminModel;
 import model.ConsoleDAO;
+import model.ConsoleModel;
 import view.Gudang;
+
 
 /**
  *
@@ -16,51 +18,51 @@ import view.Gudang;
 public class ConsoleController {
     private ConsoleDAO consoleDAO;
     private AdminModel currentAdmin;
-    private Gudang view;
+    private Gudang viewGudang;
     
-    public ConsoleController(AdminModel currentAdmin){
+    public ConsoleController(AdminModel currentAdmin, Gudang gudang){
         consoleDAO = new ConsoleDAO();
         this.currentAdmin = currentAdmin;
+        this.viewGudang= gudang;
     }
     
-    public ArrayList loadConsoleList() { //jika perlu untuk ambil data semua console
-        if(currentAdmin.getNama() != null){
-            return consoleDAO.getAllConsoles();
-        }else{
-            view.showMessage("Belum Login");
-            return null;     
-        }
+    
+    //====================untuk gudang ============================
+    public ArrayList loadConsoleListGudang() { //jika perlu untuk ambil data semua console
+        return consoleDAO.getAllConsoles(); // ini langsung diambil datanya karena beberapa view 
+                                            // langsung meload data bahkan sebelum login
     }
-
-    public void addStock(int id, int stock) {
-        if(consoleDAO.getConsoleById(id) == null){
-            view.showMessage("tidak terdapat console dengan id tersebut");
-        }
-        else if ((currentAdmin.getNama() != null) && (stock > 0)) {
+    public boolean addStockGudang(int id, int stock) {
+        if ((currentAdmin.getNama() != null && (stock > 0)) ) {
             consoleDAO.addStock(id, stock);
-            view.showMessage("Data Berhasil dirubah");
-            loadConsoleList();
-        }else if((currentAdmin.getNama() != null)){
-            view.showMessage("Tidak terdapat perubahan");
+            return true;
         }else {
-            view.showMessage("Belum Login");
+            return false;
         }
     }
-    public void reduceStock(int id, int stock){
+    public boolean reduceStockGudang(int id, int stock){
         if(consoleDAO.getConsoleById(id) == null){
-            view.showMessage("tidak terdapat console dengan id tersebut");
+            viewGudang.showMessage("tidak terdapat console dengan id tersebut");
+            return false;
         }
         else if ((currentAdmin.getNama() != null) && (stock > 0)) {
             consoleDAO.reduceStock(id, stock);
-            view.showMessage("Data Berhasil dirubah");
-            loadConsoleList();
+            viewGudang.showMessage("Data Berhasil dirubah");
+            //loadConsoleList();
+            return true;
         }else if((currentAdmin.getNama() != null)){
-            view.showMessage("Tidak terdapat perubahan");
+            viewGudang.showMessage("Tidak terdapat perubahan");
+            return false;
         }else {
-            view.showMessage("Belum Login");
+            viewGudang.showMessage("Belum Login");
+            return false;
         }
     }
-    
+    public boolean updateConsoleGudang(int id, int stock){
+        return consoleDAO.updateStock(id,stock);
+    }
+
+    //=========================================================================
     public void setAdminModel(AdminModel model){
         this.currentAdmin = model;
     }

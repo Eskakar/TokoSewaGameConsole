@@ -191,7 +191,7 @@ public class ListSubs extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     //Kembali ke SubMenuB
-        SubMenuB sm = new SubMenuB();
+        SubMenuB sm = adminControl.getSubMenuBView();
         sm.setVisible(true);
     
     // Menutup form saat ini (optional)

@@ -120,8 +120,8 @@ public class SubMenuA extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-    //Ke Input_Pembayaran_A   
-     List_Console_A list = new List_Console_A();
+        //Ke Input_Pembayaran_A   
+        List_Console_A list = adminControl.getListConsoleAView();
         list.setVisible(true);
     
     // Menutup form saat ini (optional)
@@ -130,8 +130,8 @@ public class SubMenuA extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-    //Ke History Pembayaran
-    HistoryPembayaran Hist = new HistoryPembayaran();
+        //Ke History Pembayaran
+        HistoryPembayaran Hist = adminControl.getHistoryPembayaranView();
         Hist.setVisible(true);
     
     // Menutup form saat ini (optional)
@@ -141,7 +141,7 @@ public class SubMenuA extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     //kembali ke Menu
-        Menu m = new Menu();
+        Menu m = adminControl.getMenuView();
         m.setVisible(true);
     
     // Menutup form saat ini (optional)

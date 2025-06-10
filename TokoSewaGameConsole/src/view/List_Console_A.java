@@ -649,7 +649,7 @@ public class List_Console_A extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         //Kembali ke Menu
-        Menu m = new Menu();
+        Menu m = adminControl.getMenuView();
         m.setVisible(true);
 
         // Menutup form saat ini (optional)

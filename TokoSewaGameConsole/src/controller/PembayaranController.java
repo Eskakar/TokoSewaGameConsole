@@ -31,12 +31,13 @@ public class PembayaranController {
     private DiskonDAO diskonDAO;
     private BerlanggananDAO berlangDAO;
     
-    public PembayaranController(AdminModel currentAdmin){
+    public PembayaranController(AdminModel currentAdmin,Input_Pembayaran_A inputView){
         pembayaranDAO = new PembayaranDAO();
         this.currentAdmin = currentAdmin;
         diskonDAO = new DiskonDAO();
         berlangDAO = new BerlanggananDAO();
         consoleDAO = new ConsoleDAO();
+        this.inptView = inputView;
     }
     public ArrayList loadPembayaranList() {
         if(currentAdmin.getNama() == null){
@@ -45,7 +46,7 @@ public class PembayaranController {
         return pembayaranDAO.getAllPembayaran();
     }
 
-    public void addPembayaran(int fk_admin, int fk_console, String KTP, String nama_pelanggan,
+    public void addPembayaran(int fk_console, String KTP, String nama_pelanggan,
                               int lama_peminjaman, String kodeDiskon) {
 
         // Step 1: Ambil data console berdasarkan ID
@@ -86,22 +87,26 @@ public class PembayaranController {
         
 
         // Step 4: Tambahkan transaksi
-        boolean success = pembayaranDAO.addTransaksi(fk_admin, fk_console, KTP, nama_pelanggan, lama_peminjaman, totalHarga, "Belum Dikembalikan");
+        boolean success = pembayaranDAO.addTransaksi(currentAdmin.getId(), fk_console, KTP, nama_pelanggan, lama_peminjaman, totalHarga, "Belum Dikembalikan");
         if (success) {
             inptView.showMessage("Pembayaran berhasil ditambahkan!");
-            loadPembayaranList();
+            //mengurangi stock console
+            consoleDAO.reduceStock(fk_console, 1);
+            //loadPembayaranList(); ini masih aneh
         } else {
             inptView.showMessage("Gagal menambahkan pembayaran.");
         }
     }
     //mengubah apakah sudah kembali atau belum controllernya
-    public void updatePembayaranStatus(int id, Date tanggal) {
+    public void updatePembayaranStatus(int idPembayaran, Date tanggal,int idCon) {
         if(tanggal == null){
             hisView.showMessage("Mohon data tanggal diisi!");
         }
-        else if (pembayaranDAO.updatePembayaran(id, tanggal)) {
+        else if (pembayaranDAO.updatePembayaran(idPembayaran, tanggal)) {
             hisView.showMessage("Status pembayaran berhasil diperbarui!");
-            loadPembayaranList();
+            //nambah stock console
+            consoleDAO.addStock(idCon, 1);
+            //loadPembayaranList(); ambigu!!!
         } else {
             hisView.showMessage("Gagal memperbarui status pembayaran.");
         }
