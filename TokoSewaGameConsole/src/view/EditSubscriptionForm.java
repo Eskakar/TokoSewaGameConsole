@@ -10,12 +10,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
+import controller.AdminController;
+
 /**
  *
  * @author Anzio
  */
 public class EditSubscriptionForm extends javax.swing.JDialog {
-    
+    private AdminController adminControl;
     private BerlanggananDAO subsDAO;
     private BerlanggananModel subscription;
     private SimpleDateFormat dateFormat;

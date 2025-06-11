@@ -52,7 +52,7 @@ public class Gudang extends javax.swing.JFrame {
     /**
      * Load data console dari database ke tabel
      */
-    private void loadConsoleData() {
+    public void loadConsoleData() {
         try {
             // Clear existing data
             tableModel.setRowCount(0);         
@@ -325,7 +325,7 @@ public class Gudang extends javax.swing.JFrame {
     }
     public void setController(AdminController controller) {
         this.adminControl = controller;
-        loadConsoleData();
+        //loadConsoleData();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

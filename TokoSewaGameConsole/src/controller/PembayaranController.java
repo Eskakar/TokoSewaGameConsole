@@ -15,6 +15,7 @@ import model.ConsoleModel;
 import model.DiskonDAO;
 import model.DiskonModel;
 import model.PembayaranDAO;
+import model.PembayaranModel;
 import view.HistoryPembayaran;
 import view.Input_Pembayaran_A;
 
@@ -31,13 +32,15 @@ public class PembayaranController {
     private DiskonDAO diskonDAO;
     private BerlanggananDAO berlangDAO;
     
-    public PembayaranController(AdminModel currentAdmin,Input_Pembayaran_A inputView){
+    public PembayaranController(AdminModel currentAdmin,Input_Pembayaran_A inputView,HistoryPembayaran historyVIew){
         pembayaranDAO = new PembayaranDAO();
+        this.inptView = inputView;
+        this.hisView = historyVIew;
         this.currentAdmin = currentAdmin;
         diskonDAO = new DiskonDAO();
         berlangDAO = new BerlanggananDAO();
         consoleDAO = new ConsoleDAO();
-        this.inptView = inputView;
+        
     }
     public ArrayList loadPembayaranList() {
         if(currentAdmin.getNama() == null){
@@ -98,19 +101,39 @@ public class PembayaranController {
         }
     }
     //mengubah apakah sudah kembali atau belum controllernya
-    public void updatePembayaranStatus(int idPembayaran, Date tanggal,int idCon) {
+    public boolean updatePembayaranStatus(int idPembayaran, Date tanggal,int idCon,String status) {
         if(tanggal == null){
-            hisView.showMessage("Mohon data tanggal diisi!");
+            //this.hisView.showMessage("Mohon data tanggal diisi!");
+            return false;
         }
-        else if (pembayaranDAO.updatePembayaran(idPembayaran, tanggal)) {
-            hisView.showMessage("Status pembayaran berhasil diperbarui!");
+        else if (pembayaranDAO.updatePembayaran(idPembayaran, tanggal,status)) {
+            //this.hisView.showMessage("Status pembayaran berhasil diperbarui!");
             //nambah stock console
             consoleDAO.addStock(idCon, 1);
             //loadPembayaranList(); ambigu!!!
+            return true;
         } else {
-            hisView.showMessage("Gagal memperbarui status pembayaran.");
+            //this.hisView.showMessage("Gagal memperbarui status pembayaran.");
+            return false;
         }
     }
+    public int getDataIDConPembayaran(int idPem){
+        PembayaranModel pembayaranData;
+        pembayaranData = pembayaranDAO.getPembayaranById(idPem);
+        return pembayaranData.getFk_console();
+    }
+    public PembayaranModel dataHistoryByIDPembayaran(int idPem){
+        PembayaranModel pembayaranData;
+        pembayaranData = pembayaranDAO.getPembayaranById(idPem);
+        return pembayaranData;
+    }
+    //hapus histroty pembayaran (harusnya gak boleh)
+    public boolean deleteHistory(int idPem){
+        return pembayaranDAO.deletePembayaran(idPem);
+    }
+    
+    
+    //set adminModel
     public void setAdminModel(AdminModel model){
         this.currentAdmin = model;
     }

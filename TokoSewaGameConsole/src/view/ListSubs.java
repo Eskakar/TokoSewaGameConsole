@@ -51,7 +51,7 @@ public class ListSubs extends javax.swing.JFrame {
         jTable1.getColumnModel().getColumn(3).setPreferredWidth(120); // Tanggal Expired
     }
     
-     private void loadSubscriptionData() {
+    public void loadSubscriptionData() {
         // Bersihkan tabel terlebih dahulu
         tableModel.setRowCount(0);
         
@@ -257,7 +257,7 @@ public class ListSubs extends javax.swing.JFrame {
     }
     public void setController(AdminController controller) {
         this.adminControl = controller;
-        loadSubscriptionData();
+        //loadSubscriptionData();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

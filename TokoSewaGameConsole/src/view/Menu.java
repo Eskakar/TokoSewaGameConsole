@@ -154,7 +154,7 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         
     //Menuju SubMenuB
-    SubMenuB smb = adminControlMenu.getSubMenuBView();
+        SubMenuB smb = adminControlMenu.getSubMenuBView();
         smb.setVisible(true);
     
     // Menutup form saat ini (optional)

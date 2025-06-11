@@ -59,7 +59,8 @@ public class PembayaranDAO {
                     rs.getDate("tanggal_pembayaran"),
                     rs.getInt("lama_peminjaman"),
                     rs.getInt("total_harga"),
-                    rs.getDate("tanggal_expired")
+                    rs.getDate("tanggal_expired"),
+                    rs.getString("status_console")
                 ));
             }
         } catch (SQLException e) {
@@ -81,22 +82,25 @@ public class PembayaranDAO {
         }
     }
     //4. update / edit pembayaran
-    public boolean updatePembayaran(int id,Date tanggalSudahKembali) {
+    public boolean updatePembayaran(int id,Date tanggalSudahKembali,String status) {
         try {
             Connection conn = DatabaseConnection.getConnection();
             String sql = "UPDATE pembayaran SET " +
-                         "tanggal_sudah_kembali = ? " +
+                         "tanggal_sudah_kembali = ?," +
+                         "status_console = ?"+
                          "WHERE id = ?";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setDate(1, tanggalSudahKembali);
-            stmt.setInt(2, id);    
+            stmt.setString(2, "Dikembalikan");
+            stmt.setInt(3, id);    
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
+    //5. ambil data pembayaran by id
      public PembayaranModel getPembayaranById(int id) {
         try {
             Connection conn = DatabaseConnection.getConnection();

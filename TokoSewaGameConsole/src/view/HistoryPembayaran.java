@@ -17,7 +17,6 @@ import java.util.ArrayList;
  */
 public class HistoryPembayaran extends javax.swing.JFrame {
     private AdminController adminControl;
-    private PembayaranDAO pembayaranDAO;
     private DefaultTableModel tableModel;
     
     /**
@@ -25,9 +24,7 @@ public class HistoryPembayaran extends javax.swing.JFrame {
      */
     public HistoryPembayaran() {
         initComponents();
-        pembayaranDAO = new PembayaranDAO();
-        setupTable();
-        loadDataToTable();
+        setupTable();    
     }
 
     /**
@@ -65,13 +62,13 @@ public class HistoryPembayaran extends javax.swing.JFrame {
     /**
      * Load data from database to table
      */
-    private void loadDataToTable() {
+    public void loadDataToTable() {
         try {
             // Clear existing data
             tableModel.setRowCount(0);
             
             // Get data from database
-            ArrayList<PembayaranModel> pembayaranList = pembayaranDAO.getAllPembayaran();
+            ArrayList<PembayaranModel> pembayaranList = adminControl.loadDataPembayaran();
             
             // Add data to table
             for (PembayaranModel pembayaran : pembayaranList) {
@@ -210,6 +207,11 @@ public class HistoryPembayaran extends javax.swing.JFrame {
      // Edit pembayaran - mark as returned
         int selectedId = getSelectedPembayaranId();
         if (selectedId != -1) {
+            //pengecekan apakah sudah dikembalikan
+            if(adminControl.checkConsleStatus(selectedId)){
+                showMessage("Sudah Dikembalikan");
+                return;
+            }
             int confirm = JOptionPane.showConfirmDialog(this, 
                 "Apakah Anda yakin ingin menandai console sebagai sudah dikembalikan?", 
                 "Konfirmasi", JOptionPane.YES_NO_OPTION);
@@ -217,7 +219,7 @@ public class HistoryPembayaran extends javax.swing.JFrame {
             if (confirm == JOptionPane.YES_OPTION) {
                 try {
                     java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
-                    boolean success = pembayaranDAO.updatePembayaran(selectedId, currentDate);
+                    boolean success = adminControl.updatePembayaran(selectedId, currentDate,"Dikembalikan");
                     
                     if (success) {
                         JOptionPane.showMessageDialog(this, "Data berhasil diperbarui!", 
@@ -237,8 +239,9 @@ public class HistoryPembayaran extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-    SubMenuA sm = new SubMenuA();
-    sm.setVisible(true);
+        SubMenuA sm = adminControl.getSubMenuAView();
+        sm.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -254,7 +257,7 @@ public class HistoryPembayaran extends javax.swing.JFrame {
             
             if (confirm == JOptionPane.YES_OPTION) {
                 try {
-                    boolean success = pembayaranDAO.deletePembayaran(selectedId);
+                    boolean success = adminControl.deleteHistoryPembayaran(selectedId);
                     
                     if (success) {
                         JOptionPane.showMessageDialog(this, "Data berhasil dihapus!", 

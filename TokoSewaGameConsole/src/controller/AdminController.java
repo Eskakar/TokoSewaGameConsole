@@ -21,7 +21,6 @@ public class AdminController {
     private AdminModel modelAdmin;
     private LoginDAO loginDAO;
     private String statusLogin;
-    private Login loginView;
     
     //bikin object dari tiap view
     private DaftarSubs dafView;
@@ -48,7 +47,7 @@ public class AdminController {
         this.loginDAO = new LoginDAO();
         consoleControl = new ConsoleController(modelAdmin,this.gudangView);
         diskonControl = new DiskonController(modelAdmin);
-        pembayaranControl = new PembayaranController(modelAdmin,this.inputPemView);
+        pembayaranControl = new PembayaranController(modelAdmin,this.inputPemView,this.historyView);
         //set agar menggunakan view yang sudah dibuat di main
         this.dafView = dafView;
         this.gudangView = gudangView;
@@ -83,7 +82,8 @@ public class AdminController {
        if( loginDAO.isConnectionValid()){
            return true;
        }else{
-           loginView.showMessage("Connection Error");
+           login.showMessage("Connection Error");
+           System.exit(0);
            return false;
        }
     }
@@ -100,8 +100,8 @@ public class AdminController {
     }
     //B.Pembayaran
     //1.ambl semua data berlangganan --untuk History pembayaran
-    public void loadDataPembayaran(){
-        pembayaranControl.loadPembayaranList();
+    public ArrayList loadDataPembayaran(){
+        return pembayaranControl.loadPembayaranList();
         //dikasih fungsi penampilan sesuai view yang dipakai dihubunin dengan pembayaran Control
     }
     //2.upload data pembayaran ke DB --untuk input pembayaran view
@@ -111,6 +111,28 @@ public class AdminController {
         pembayaranControl.addPembayaran( fk_console, KTP, nama_pelanggan,lama_peminjaman,  kodeDiskon);     
         //kasih view pop up pembayaran setlah input pembayaran dan total pembayaran
     }
+    //3.update pembayaran/ set status controler dikembalikan - di view history pembayaran
+    public boolean updatePembayaran(int id, Date currentDate,String status){
+        int idCon = pembayaranControl.getDataIDConPembayaran(id);
+        if(pembayaranControl.updatePembayaranStatus(id, currentDate, idCon,status)){
+            this.historyView.loadDataToTable();
+            return true;
+        }
+        return false;
+    }
+    //4.delete history pembayaran
+    public boolean deleteHistoryPembayaran(int idPem){
+        if(pembayaranControl.deleteHistory(idPem)){
+            return true;
+        }
+        return false;
+    }
+    //5.check apakah console sudah dikembalikan
+    public boolean checkConsleStatus(int idPem){
+        PembayaranModel pemModel = pembayaranControl.dataHistoryByIDPembayaran(idPem);
+        return !"Dipinjam".equals(pemModel.getStatus_console());
+    }
+    
    //C. subscirption
     //1. Ambil data berlangganan
     public ArrayList loadSubs(){
@@ -136,7 +158,7 @@ public class AdminController {
     
     
     //========================================================================================
-    //bagian get View
+    //bagian get View 
     public Menu getMenuView(){
         return this.menu;
     }
@@ -147,18 +169,22 @@ public class AdminController {
         return this.subB;
     }
     public Gudang getGudangView(){
+        //plus load data saat object dipanggil
+        this.gudangView.loadConsoleData();
         return this.gudangView;
     }
     public List_Console_A getListConsoleAView(){
         return this.listconsole;
     }
     public HistoryPembayaran getHistoryPembayaranView(){
+        this.historyView.loadDataToTable();
         return this.historyView;
     }
     public DaftarSubs getDaftarSubsView(){
         return this.dafView;
     }
     public ListSubs getListSubsView(){
+        this.listSubsView.loadSubscriptionData();
         return this.listSubsView;
     }
 }
