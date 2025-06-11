@@ -40,7 +40,7 @@ public class BerlanggananController {
     public void updateSubscription(String KTP, String newStatus) {
         if(currentAdmin == null){
             editSubsView.showMessage("login dulu");
-        }else if (subsDAO.updateSubscription(KTP, newStatus)) {
+        }else if (subsDAO.updateStatusByKTP(KTP, newStatus)) {
             editSubsView.showMessage("Status berlangganan berhasil diperbarui!");
             loadBerlanggananList();
         } else {

@@ -7,7 +7,6 @@ package view;
 
 import controller.AdminController;
 import javax.swing.JOptionPane;
-import model.PembayaranDAO;
 import model.ConsoleModel;
 import model.PembayaranModel;
 import javax.swing.*;
@@ -25,24 +24,19 @@ import java.util.List;
 public class Input_Pembayaran_A extends javax.swing.JFrame {
 
     private AdminController adminControl;
-    private PembayaranDAO pembayaranDAO;
-    private List<ConsoleModel> consoleList;
     private ConsoleModel selectedConsole;
     private DefaultTableModel tableModel;
+    private PembayaranModel pembayaranModel;
     private int targetConsoleId;
+    
+    //set variabel
+    private String DiskonVoucher;
 
-    public Input_Pembayaran_A(int consoleId) {
-        pembayaranDAO = new PembayaranDAO();
-        this.targetConsoleId = consoleId;
+    public Input_Pembayaran_A() {
+        //this.targetConsoleId = consoleId;
         initComponents();
         setupTable();
-        /*
-        loadConsoleData();
-        setupEventHandlers();
-        
-        if (consoleId > 0) {
-            selectConsoleById(consoleId);
-        }*/
+        pembayaranModel = new PembayaranModel();
         
         setLocationRelativeTo(null); 
     }
@@ -75,123 +69,22 @@ public class Input_Pembayaran_A extends javax.swing.JFrame {
             }
         });
     }
-    /*
-    private void loadConsoleData() {
-        consoleList = pembayaranDAO.getAllConsoles();
+    
+    public void loadConsoleData() {
+        selectedConsole = adminControl.getConsoleByID(this.targetConsoleId);
         tableModel.setRowCount(0); // Clear existing data
         
         // Hanya tampilkan console yang sesuai dengan targetConsoleId
-        for (ConsoleModel console : consoleList) {
-            // Jika targetConsoleId > 0, hanya tampilkan console dengan ID tersebut
-            // Jika targetConsoleId <= 0, tampilkan semua console (untuk backward compatibility)
-            if (targetConsoleId <= 0 || console.getId() == targetConsoleId) {
-                Object[] row = {
-                    console.getId(),
-                    console.getPaket(),
-                    "Rp " + console.getHarga().toString(),
-                    console.getStock()
-                };
-                tableModel.addRow(row);
-            }
-        }
-        
-        // Jika hanya ada satu console yang ditampilkan, otomatis pilih console tersebut
-        if (tableModel.getRowCount() == 1) {
-            jTable1.setRowSelectionInterval(0, 0);
-            int consoleId = (Integer) tableModel.getValueAt(0, 0);
-            selectConsoleById(consoleId);
-        }
-    }   */
-    /*
-    private void selectConsoleById(int consoleId) {
-        selectedConsole = pembayaranDAO.getConsoleById(consoleId);
-        if (selectedConsole != null) {
-            // Highlight selected row in table
-            for (int i = 0; i < tableModel.getRowCount(); i++) {
-                if ((Integer) tableModel.getValueAt(i, 0) == consoleId) {
-                    jTable1.setRowSelectionInterval(i, i);
-                    break;
-                }
-            }
-        }
-    }*/
-    /*
-     private void setupEventHandlers() {
-        // Event handler untuk durasi pinjam
-        jTextField5.addCaretListener(e -> calculateTotal());
-        
-        // Event handler untuk kode voucher
-        jTextField6.addCaretListener(e -> calculateTotal());
-        
-        // Event handler untuk tombol confirm
-        jButton1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                confirmPayment();
-            }
-        });
-    }*/
-      
-      
-      
-    /*
-     private void confirmPayment() {
-        try {
-            // Validasi input
-            if (!validateInput()) {
-                return;
-            }
-            
-            // Buat object Pembayaran
-            Pembayaran pembayaran = new Pembayaran();
-            pembayaran.setKtp(jTextField2.getText().trim());
-            pembayaran.setNamaPelanggan(jTextField3.getText().trim());
-            pembayaran.setFkConsole(selectedConsole.getId());
-            pembayaran.setLamaPeminjaman(Integer.parseInt(jTextField5.getText().trim()));
-            pembayaran.setCatatan(jTextArea1.getText().trim());
-            pembayaran.setKodeVoucher(jTextField6.getText().trim());
-            pembayaran.setMetodePembayaran(jTextField4.getText().trim());
-            
-            // Hitung total harga
-            int persenDiskon = pembayaranDAO.getDiskonByKode(pembayaran.getKodeVoucher());
-            int totalHarga = pembayaranDAO.hitungTotalHarga(
-                selectedConsole.getHarga(), 
-                pembayaran.getLamaPeminjaman(), 
-                persenDiskon
-            );
-            pembayaran.setTotalHarga(totalHarga);
-            
-            // Simpan ke database
-            boolean success = pembayaranDAO.insertPembayaran(pembayaran);
-            
-            if (success) {
-                JOptionPane.showMessageDialog(this, 
-                    "Pembayaran berhasil disimpan!\n" +
-                    "Total: Rp " + totalHarga + "\n" +
-                    "ID Transaksi: " + pembayaran.getId(),
-                    "Sukses", 
-                    JOptionPane.INFORMATION_MESSAGE);
-                
-                // Reset form
-                resetForm();
-                // Reload console data (untuk update stock)
-                loadConsoleData();
-            } else {
-                JOptionPane.showMessageDialog(this, 
-                    "Gagal menyimpan pembayaran!\nSilakan coba lagi.", 
-                    "Error", 
-                    JOptionPane.ERROR_MESSAGE);
-            }
-            
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, 
-                "Terjadi kesalahan: " + e.getMessage(), 
-                "Error", 
-                JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
-        }
-    }
-    */
+        Object[] row = {
+            selectedConsole.getId(),
+            selectedConsole.getPaket(),
+            "Rp " + selectedConsole.getHarga().toString(),
+            selectedConsole.getStock()
+        };
+        tableModel.addRow(row);
+   
+    }   
+    
     /**
      * Validasi input form
      */
@@ -250,44 +143,25 @@ public class Input_Pembayaran_A extends javax.swing.JFrame {
      * Reset form ke kondisi awal
      */
     private void resetForm() {
-        jTextField2.setText("");
-        jTextField3.setText("");
-        jTextField4.setText("");
-        jTextField5.setText("");
-        jTextField6.setText("");
-        jTextArea1.setText("");
+        jTextField2.setText("");//ktp
+        jTextField3.setText("");//Nama pembaeli
+        jTextField4.setText("");//Metode Pembayaran
+        jTextField5.setText("");//durasi hari
+        jTextField6.setText("");//kode voucher
+        jTextArea1.setText("");//catatan
         jTable1.clearSelection();
         selectedConsole = null;
     }
-    /**
-     * Hitung total harga berdasarkan console yang dipilih, durasi, dan voucher
-     */
-    /*
-    private void calculateTotal() {
-        if (selectedConsole == null) return;
-        
-        try {
-            String durasiText = jTextField5.getText().trim();
-            if (durasiText.isEmpty()) return;
-            
-            int durasi = Integer.parseInt(durasiText);
-            if (durasi <= 0) return;
-            
-            String kodeVoucher = jTextField6.getText().trim();
-            int persenDiskon = pembayaranDAO.getDiskonByKode(kodeVoucher);
-            
-            int totalHarga = pembayaranDAO.hitungTotalHarga(
-                selectedConsole.getHarga(), durasi, persenDiskon
-            );
-           
-            // Update label atau field untuk menampilkan total
-            // Anda bisa menambahkan label untuk menampilkan total harga
-            
-        } catch (NumberFormatException e) {
-            // Invalid duration format
-        }
+    private void setPembayaranData(){
+        //int fk_console, String KTP, String nama_pelanggan,int lama_peminjaman, String kodeDiskon
+        this.pembayaranModel.setFk_console(targetConsoleId);
+        this.pembayaranModel.setKTP(jTextField2.getText());
+        this.pembayaranModel.setNama_pelanggan(jTextField3.getText());
+        this.pembayaranModel.setLama_peminjaman(Integer.parseInt(jTextField5.getText()));
+        this.pembayaranModel.setCatatan(jTextArea1.getText());
+        this.DiskonVoucher = jTextField6.getText();
     }
-    */
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -436,26 +310,65 @@ public class Input_Pembayaran_A extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        //tombol confirm disini
+        if(!validateInput()){
+            return;
+        }
+        setPembayaranData();
+        //int idCon,int durasi,String kodeDiskon,String KTP,String namaPelanggan
+        BigDecimal harga = adminControl.hitungTotalHarga(
+                this.targetConsoleId,
+                this.pembayaranModel.getLama_peminjaman(),
+                this.DiskonVoucher,
+                this.pembayaranModel.getKTP()
+        );
+        int option = JOptionPane.showConfirmDialog(
+            this,  
+            "Total Harga : " + harga,
+            "Konfirmasi Pembayaran",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE
+        );
+        if(option == 1){
+            return;
+        }
+        //menyimpan data didatabase
+        //int fk_admin, int fk_console, String KTP, String nama_pelanggan,
+        //int lama_peminjaman, String kodeDiskon,String catatan
+        if(!adminControl.addPembayaran(adminControl.getAdminModelID(), this.targetConsoleId, 
+                this.pembayaranModel.getKTP(),this.pembayaranModel.getNama_pelanggan(), 
+                this.pembayaranModel.getLama_peminjaman(), DiskonVoucher,
+                this.pembayaranModel.getCatatan())){
+            showMessage("Transaksi Gagal");
+            return;
+        }
+        showMessage("Transaksi Berhasil");
+        Menu m = adminControl.getMenuView();
+        m.setVisible(true);
+        // Menutup form saat ini (optional)
+        this.dispose();
+        resetForm();         
+           
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         //Kembali ke Menu
-        Menu m = new Menu();
+        Menu m = adminControl.getMenuView();
         m.setVisible(true);
-
+        resetForm();
         // Menutup form saat ini (optional)
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    public void setSelectConsole(int idCon){
+        this.targetConsoleId = idCon;
+    }
 
     public void showMessage(String message) {
         JOptionPane.showMessageDialog(this, message);
     }
-        public void setController(AdminController controller) {
+    public void setController(AdminController controller) {
         this.adminControl = controller;
     }
 

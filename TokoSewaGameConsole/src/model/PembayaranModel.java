@@ -23,6 +23,7 @@ public class PembayaranModel {
     private int total_harga;
     private String status_console;
     private Date tanggal_expired;
+    private String catatan;
 
     // Default constructor
     public PembayaranModel() {
@@ -30,7 +31,7 @@ public class PembayaranModel {
 
     // Constructor with parameters
     public PembayaranModel(int id, int fk_admin, int fk_console, String KTP, String nama_pelanggan, 
-                          Date tanggal_pembayaran, int lama_peminjaman, int total_harga, Date tanggal_expired,String status) {
+                          Date tanggal_pembayaran, int lama_peminjaman, int total_harga, Date tanggal_expired,String status,String catatan) {
         this.id = id;
         this.fk_admin = fk_admin;
         this.fk_console = fk_console;
@@ -41,6 +42,7 @@ public class PembayaranModel {
         this.total_harga = total_harga;
         this.tanggal_expired = tanggal_expired;
         this.status_console = status; // Default status
+        this.catatan = catatan;
     }
 
     // Full constructor
@@ -147,6 +149,13 @@ public class PembayaranModel {
 
     public void setTanggal_expired(Date tanggal_expired) {
         this.tanggal_expired = tanggal_expired;
+    }
+    public String getCatatan() {
+        return this.catatan;
+    }
+
+    public void setCatatan(String catatan) {
+        this.catatan = catatan;
     }
 
     @Override

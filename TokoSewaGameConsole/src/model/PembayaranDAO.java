@@ -18,28 +18,33 @@ import java.util.ArrayList;
  */
 public class PembayaranDAO {
     //1. tambah transaksi / Create
-    public boolean addTransaksi( int fk_admin, int fk_console, String KTP, String nama_pelanggan, int lama_peminjaman, BigDecimal total_harga,String status) {
-        try {
-            //id auto , tanggal sesuai tanggal sekarang, tanggal sudah kembali belum dimasukin
-            //yang dari DB gak ditulis cuman ID dan tanggal_sudah_dikembalikan
-            Connection conn = DatabaseConnection.getConnection();
-            String sql = "INSERT INTO pembayaran (fk_admin, ktp, nama_pelanggan,fk_console,tanggal_pembayaran,lama_peminjaman,total_harga,status_console,tanggal_expired) VALUES (?, ?, ?, ?,NOW(),?,?,?,DATE_ADD(NOW(), INTERVAL ? DAY))";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, fk_admin);
-            stmt.setString(2, KTP);
-            stmt.setString(3, nama_pelanggan);
-            stmt.setInt(4, fk_console);
-            stmt.setInt(6, lama_peminjaman);
-            stmt.setBigDecimal(7, total_harga);
-            stmt.setString(8, status);
-            stmt.setInt(9, lama_peminjaman);
+    public boolean addTransaksi(int fk_admin, int fk_console, String KTP, String nama_pelanggan,
+                            int lama_peminjaman, BigDecimal total_harga, String status, String catatan) {
+    try {
+        Connection conn = DatabaseConnection.getConnection();
 
-            return stmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
+        String sql = "INSERT INTO pembayaran " +
+                     "(fk_admin, ktp, nama_pelanggan, fk_console, tanggal_pembayaran, lama_peminjaman, " +
+                     "total_harga, status_console, tanggal_expired, Catatan) " +
+                     "VALUES (?, ?, ?, ?, NOW(), ?, ?, ?, DATE_ADD(NOW(), INTERVAL ? DAY), ?)";
+
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, fk_admin);
+        stmt.setString(2, KTP);
+        stmt.setString(3, nama_pelanggan);
+        stmt.setInt(4, fk_console);
+        stmt.setInt(5, lama_peminjaman);
+        stmt.setBigDecimal(6, total_harga);
+        stmt.setString(7, status);
+        stmt.setInt(8, lama_peminjaman); // untuk INTERVAL ? DAY
+        stmt.setString(9, catatan);
+
+        return stmt.executeUpdate() > 0;
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
     }
+}
     //2. read transaksi pembayaran
     public ArrayList<PembayaranModel> getAllPembayaran() {
         ArrayList<PembayaranModel> pembayaran = new ArrayList<>();
@@ -60,7 +65,8 @@ public class PembayaranDAO {
                     rs.getInt("lama_peminjaman"),
                     rs.getInt("total_harga"),
                     rs.getDate("tanggal_expired"),
-                    rs.getString("status_console")
+                    rs.getString("status_console"),
+                    rs.getString("catatan")
                 ));
             }
         } catch (SQLException e) {

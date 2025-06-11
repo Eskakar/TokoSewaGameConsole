@@ -12,24 +12,26 @@ import controller.AdminController;
  */
 public class List_Console_A extends javax.swing.JFrame {
 
-    private AdminController adminControl;   
-    private void navigateToInputPembayaran(int consoleId) {
-    // Tutup window saat ini
-    this.dispose();
-    
-    // Buat dan tampilkan window input_pembayaran dengan ID console
-    java.awt.EventQueue.invokeLater(new Runnable() {
-        public void run() {
-            new Input_Pembayaran_A(consoleId).setVisible(true);
-        }
-    });
-    }   
+    private AdminController adminControl;  
+    private Input_Pembayaran_A inputForm;
+      
     /**
      * Creates new form List_Console_A
      */
     public List_Console_A() {
         initComponents();
     }
+    private void navigateToInputPembayaran(int consoleId) {
+        // Tutup window saat ini
+        this.dispose();
+
+        // tampilkan window input_pembayaran dengan ID console
+        inputForm = adminControl.getInputPembayaranA();
+        inputForm.setSelectConsole(consoleId);
+        inputForm.loadConsoleData();
+        this.dispose();
+        inputForm.setVisible(true);
+    } 
 
     /**
      * This method is called from within the constructor to initialize the form.

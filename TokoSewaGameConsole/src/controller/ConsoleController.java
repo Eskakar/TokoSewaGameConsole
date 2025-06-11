@@ -61,7 +61,9 @@ public class ConsoleController {
     public boolean updateConsoleGudang(int id, int stock){
         return consoleDAO.updateStock(id,stock);
     }
-
+    public ConsoleModel getConsoleByID(int idCon){
+        return consoleDAO.getConsoleById(idCon);
+    }
     //=========================================================================
     public void setAdminModel(AdminModel model){
         this.currentAdmin = model;

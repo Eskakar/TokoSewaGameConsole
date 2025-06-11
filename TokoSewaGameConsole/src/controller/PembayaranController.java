@@ -49,17 +49,15 @@ public class PembayaranController {
         return pembayaranDAO.getAllPembayaran();
     }
 
-    public void addPembayaran(int fk_console, String KTP, String nama_pelanggan,
-                              int lama_peminjaman, String kodeDiskon) {
+    public boolean addPembayaran(int fk_console, String KTP, String nama_pelanggan,
+                              int lama_peminjaman, String kodeDiskon,String catatan) {
 
         // Step 1: Ambil data console berdasarkan ID
         ConsoleModel console = consoleDAO.getConsoleById(fk_console);
         if (console == null) {
-            inptView.showMessage("Console tidak ditemukan.");
-            return;
+            return false;
         }else if(console.getStock() == 0){
-            inptView.showMessage("Console Kehabisan Stock");
-            return;
+            return false;
         }
 
         BigDecimal hargaDasar = console.getHarga();
@@ -90,14 +88,14 @@ public class PembayaranController {
         
 
         // Step 4: Tambahkan transaksi
-        boolean success = pembayaranDAO.addTransaksi(currentAdmin.getId(), fk_console, KTP, nama_pelanggan, lama_peminjaman, totalHarga, "Belum Dikembalikan");
+        boolean success = pembayaranDAO.addTransaksi(currentAdmin.getId(), fk_console, KTP, nama_pelanggan, lama_peminjaman, totalHarga, "Dipinjam",catatan);
         if (success) {
-            inptView.showMessage("Pembayaran berhasil ditambahkan!");
             //mengurangi stock console
             consoleDAO.reduceStock(fk_console, 1);
             //loadPembayaranList(); ini masih aneh
+            return true;
         } else {
-            inptView.showMessage("Gagal menambahkan pembayaran.");
+            return false;
         }
     }
     //mengubah apakah sudah kembali atau belum controllernya
@@ -117,6 +115,38 @@ public class PembayaranController {
             return false;
         }
     }
+    //menghitung pembayaran
+    public BigDecimal hitungTotalHarga(int idCon,int durasi,String kodeDiskon,String KTP){
+        // Step 1: Ambil data console berdasarkan ID
+        ConsoleModel console = consoleDAO.getConsoleById(idCon);
+
+        BigDecimal hargaDasar = console.getHarga();
+        //perkalian Bigdecimal dan int
+        BigDecimal totalHarga = hargaDasar.multiply(BigDecimal.valueOf(durasi));
+
+        // Step 2: Cek diskon dari kode diskon jika ada
+        if (kodeDiskon != null && !kodeDiskon.isEmpty()) {
+            ArrayList<DiskonModel> diskons = diskonDAO.getAllDiskon();
+            for (DiskonModel d : diskons) {
+                if (d.getKodeUnik().equalsIgnoreCase(kodeDiskon)) {
+                    BigDecimal potongan = (totalHarga.multiply(BigDecimal.valueOf(d.getDiskon()))).divide(BigDecimal.valueOf(100));
+                    totalHarga = totalHarga.subtract(potongan); //pengurangan harga;
+                    break;
+                }
+            }
+        }
+
+        // Step 3: Cek apakah pelanggan berlangganan
+        BerlanggananModel subs = berlangDAO.getSubscriptionByKTP(KTP);
+        if((subs != null) && (subs.getStatus() == "Aktif")){
+            BigDecimal potongan = new BigDecimal("0.2");
+            // DiskonModel tambahan 20%
+            totalHarga = totalHarga.subtract(totalHarga.multiply(potongan));
+        }
+        
+        
+        return totalHarga;
+    }
     public int getDataIDConPembayaran(int idPem){
         PembayaranModel pembayaranData;
         pembayaranData = pembayaranDAO.getPembayaranById(idPem);
@@ -130,6 +160,16 @@ public class PembayaranController {
     //hapus histroty pembayaran (harusnya gak boleh)
     public boolean deleteHistory(int idPem){
         return pembayaranDAO.deletePembayaran(idPem);
+    }
+    public void setInpView(Input_Pembayaran_A inputview){
+        if(this.inptView == null){
+            this.inptView = inputview;
+        }
+    }
+    public void setHistoryView(HistoryPembayaran hisview){
+        if(this.hisView == null){
+            this.hisView = hisview;
+        }
     }
     
     

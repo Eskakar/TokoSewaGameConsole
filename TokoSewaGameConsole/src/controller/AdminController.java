@@ -99,17 +99,16 @@ public class AdminController {
         return statusLogin;
     }
     //B.Pembayaran
-    //1.ambl semua data berlangganan --untuk History pembayaran
+    //1.ambl semua data pembayaran --untuk History pembayaran
     public ArrayList loadDataPembayaran(){
         return pembayaranControl.loadPembayaranList();
         //dikasih fungsi penampilan sesuai view yang dipakai dihubunin dengan pembayaran Control
     }
     //2.upload data pembayaran ke DB --untuk input pembayaran view
-    public void addPembayaran(int fk_admin, int fk_console, String KTP, String nama_pelanggan,
-                              int lama_peminjaman, String kodeDiskon){
+    public boolean addPembayaran(int fk_admin, int fk_console, String KTP, String nama_pelanggan,
+                              int lama_peminjaman, String kodeDiskon,String catatan){
         //fungsi untuk pop up setelah confirm pembarana, lalu ada detail semua pembayaran dan total harga
-        pembayaranControl.addPembayaran( fk_console, KTP, nama_pelanggan,lama_peminjaman,  kodeDiskon);     
-        //kasih view pop up pembayaran setlah input pembayaran dan total pembayaran
+        return pembayaranControl.addPembayaran( fk_console, KTP, nama_pelanggan,lama_peminjaman,  kodeDiskon, catatan);     
     }
     //3.update pembayaran/ set status controler dikembalikan - di view history pembayaran
     public boolean updatePembayaran(int id, Date currentDate,String status){
@@ -132,7 +131,10 @@ public class AdminController {
         PembayaranModel pemModel = pembayaranControl.dataHistoryByIDPembayaran(idPem);
         return !"Dipinjam".equals(pemModel.getStatus_console());
     }
-    
+    //6. ngitung total harga
+    public BigDecimal hitungTotalHarga(int idCon,int durasi,String kodeDiskon,String KTP){
+        return pembayaranControl.hitungTotalHarga(idCon, durasi, kodeDiskon, KTP);
+    }
    //C. subscirption
     //1. Ambil data berlangganan
     public ArrayList loadSubs(){
@@ -155,6 +157,10 @@ public class AdminController {
     public boolean updateStockGudang(int id, int stock){
         return consoleControl.updateConsoleGudang(id,stock);
     }
+    public ConsoleModel getConsoleByID(int idCon){
+        return consoleControl.getConsoleByID(idCon);
+    }
+
     
     
     //========================================================================================
@@ -187,4 +193,21 @@ public class AdminController {
         this.listSubsView.loadSubscriptionData();
         return this.listSubsView;
     }
+    public Input_Pembayaran_A getInputPembayaranA(){
+        return this.inputPemView;
+    }
+    public AdminModel getAdminModel(){
+        return this.modelAdmin;
+    }
+    public int getAdminModelID(){
+        return this.modelAdmin.getId();
+    }
+    
+    public void setInpView(Input_Pembayaran_A inputview){
+        pembayaranControl.setInpView(inputview);
+    }
+    public void setHistoryView(HistoryPembayaran hisview){
+        pembayaranControl.setHistoryView(hisview);
+    }
+
 }
