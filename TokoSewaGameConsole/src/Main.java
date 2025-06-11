@@ -52,6 +52,7 @@ public class Main {
             menu.setController(adminController);
             subA.setController(adminController);
             subB.setController(adminController);
+
             
             //menu login
             login.setVisible(true);

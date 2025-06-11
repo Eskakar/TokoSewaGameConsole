@@ -179,8 +179,10 @@ public class Menu extends javax.swing.JFrame {
 
         //Log Out
         // Menutup form saat ini (optional)
+        Login login = adminControlMenu.getLoginView();
+        login.setVisible(true);
         this.dispose();
-        System.exit(0);
+
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**

@@ -142,7 +142,10 @@ public class Login extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
-
+    private void resetText(){
+        jTextField1.setText("");
+        jPasswordField1.setText("");
+    }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         String username = jTextField1.getText().trim(); 
@@ -168,6 +171,7 @@ public class Login extends javax.swing.JFrame {
             Menu m = adminControl.getMenuView();
             m.setVisible(true);
             m.pack();
+            resetText();
             this.dispose();
         } else {
             // tesLogin failed
