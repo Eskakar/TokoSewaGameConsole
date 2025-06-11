@@ -42,19 +42,19 @@ public class ConsoleController {
     }
     public boolean reduceStockGudang(int id, int stock){
         if(consoleDAO.getConsoleById(id) == null){
-            viewGudang.showMessage("tidak terdapat console dengan id tersebut");
+            //viewGudang.showMessage("tidak terdapat console dengan id tersebut");
             return false;
         }
         else if ((currentAdmin.getNama() != null) && (stock > 0)) {
             consoleDAO.reduceStock(id, stock);
-            viewGudang.showMessage("Data Berhasil dirubah");
+            //viewGudang.showMessage("Data Berhasil dirubah");
             //loadConsoleList();
             return true;
         }else if((currentAdmin.getNama() != null)){
-            viewGudang.showMessage("Tidak terdapat perubahan");
+            //viewGudang.showMessage("Tidak terdapat perubahan");
             return false;
         }else {
-            viewGudang.showMessage("Belum Login");
+            //viewGudang.showMessage("Belum Login");
             return false;
         }
     }
