@@ -104,10 +104,9 @@ public class Gudang extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(600, 500));
         setMinimumSize(new java.awt.Dimension(600, 500));
-        setPreferredSize(new java.awt.Dimension(600, 500));
 
+        jPanel1.setBackground(new java.awt.Color(0, 102, 102));
         jPanel1.setMaximumSize(new java.awt.Dimension(600, 500));
         jPanel1.setMinimumSize(new java.awt.Dimension(600, 500));
 
@@ -127,6 +126,7 @@ public class Gudang extends javax.swing.JFrame {
         jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jTable1);
 
+        jButton1.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jButton1.setText("Edit Stok");
         jButton1.setMaximumSize(new java.awt.Dimension(123, 28));
         jButton1.setMinimumSize(new java.awt.Dimension(123, 28));
@@ -137,6 +137,7 @@ public class Gudang extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jButton2.setText("Kembali ke Menu");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -144,6 +145,8 @@ public class Gudang extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Arial Black", 0, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Gudang");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -160,18 +163,17 @@ public class Gudang extends javax.swing.JFrame {
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)
-                        .addGap(74, 74, 74))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(274, 274, 274)
-                .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(74, 74, 74))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(222, 222, 222))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(45, Short.MAX_VALUE)
+                .addContainerGap(19, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)

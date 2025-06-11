@@ -93,16 +93,20 @@ public class List_Console_A extends javax.swing.JFrame {
         setResizable(false);
         setSize(new java.awt.Dimension(800, 500));
 
+        jPanel1.setBackground(new java.awt.Color(0, 102, 102));
         jPanel1.setMinimumSize(new java.awt.Dimension(800, 500));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel8.setBackground(new java.awt.Color(235, 235, 235));
         jPanel8.setName(""); // NOI18N
 
+        jPanel9.setBackground(new java.awt.Color(235, 235, 235));
         jPanel9.setMinimumSize(new java.awt.Dimension(246, 268));
         jPanel9.setName(""); // NOI18N
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/PS5Disc.png"))); // NOI18N
 
+        jButton5.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jButton5.setText("Add to Cart");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,6 +114,8 @@ public class List_Console_A extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(51, 51, 51));
         jLabel6.setText("PS5++");
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
@@ -117,7 +123,7 @@ public class List_Console_A extends javax.swing.JFrame {
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(23, 23, 23)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                         .addComponent(jLabel7)
@@ -141,6 +147,7 @@ public class List_Console_A extends javax.swing.JFrame {
                 .addContainerGap(11, Short.MAX_VALUE))
         );
 
+        jPanel11.setBackground(new java.awt.Color(235, 235, 235));
         jPanel11.setMinimumSize(new java.awt.Dimension(246, 268));
         jPanel11.setPreferredSize(new java.awt.Dimension(246, 268));
 
@@ -149,6 +156,7 @@ public class List_Console_A extends javax.swing.JFrame {
         jLabel14.setMinimumSize(new java.awt.Dimension(246, 268));
         jLabel14.setPreferredSize(null);
 
+        jButton9.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jButton9.setText("Add to Cart");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,6 +164,8 @@ public class List_Console_A extends javax.swing.JFrame {
             }
         });
 
+        jLabel15.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(51, 51, 51));
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setText("XBox Series X");
         jLabel15.setToolTipText("");
@@ -166,9 +176,9 @@ public class List_Console_A extends javax.swing.JFrame {
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton9)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(78, 78, 78))
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
@@ -187,8 +197,11 @@ public class List_Console_A extends javax.swing.JFrame {
                 .addGap(12, 12, 12))
         );
 
+        jPanel10.setBackground(new java.awt.Color(235, 235, 235));
+
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/PS5Digi.jpg"))); // NOI18N
 
+        jButton6.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jButton6.setText("Add to Cart");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -196,6 +209,8 @@ public class List_Console_A extends javax.swing.JFrame {
             }
         });
 
+        jLabel9.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(51, 51, 51));
         jLabel9.setText("PS5 Basic");
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
@@ -228,12 +243,14 @@ public class List_Console_A extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanel12.setBackground(new java.awt.Color(235, 235, 235));
         jPanel12.setMinimumSize(new java.awt.Dimension(246, 268));
         jPanel12.setPreferredSize(new java.awt.Dimension(246, 268));
 
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Series S.png"))); // NOI18N
 
+        jButton10.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jButton10.setText("Add to Cart");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -241,6 +258,8 @@ public class List_Console_A extends javax.swing.JFrame {
             }
         });
 
+        jLabel17.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(51, 51, 51));
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel17.setText("XBox Series S");
 
@@ -272,8 +291,11 @@ public class List_Console_A extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanel13.setBackground(new java.awt.Color(235, 235, 235));
+
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/PS4 ++.png"))); // NOI18N
 
+        jButton11.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jButton11.setText("Add to Cart");
         jButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -281,6 +303,8 @@ public class List_Console_A extends javax.swing.JFrame {
             }
         });
 
+        jLabel19.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(51, 51, 51));
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel19.setText("PS4++");
 
@@ -293,11 +317,11 @@ public class List_Console_A extends javax.swing.JFrame {
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(78, 78, 78))
+                .addGap(72, 72, 72))
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jLabel18)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(23, 23, 23))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -311,8 +335,11 @@ public class List_Console_A extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanel14.setBackground(new java.awt.Color(235, 235, 235));
+
         jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/PS4 Basic.png"))); // NOI18N
 
+        jButton12.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jButton12.setText("Add to Cart");
         jButton12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -320,6 +347,8 @@ public class List_Console_A extends javax.swing.JFrame {
             }
         });
 
+        jLabel21.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(51, 51, 51));
         jLabel21.setText("PS4 Basic");
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
@@ -352,8 +381,11 @@ public class List_Console_A extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanel15.setBackground(new java.awt.Color(235, 235, 235));
+
         jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/PS3 Basic.png"))); // NOI18N
 
+        jButton13.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jButton13.setText("Add to Cart");
         jButton13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -361,6 +393,8 @@ public class List_Console_A extends javax.swing.JFrame {
             }
         });
 
+        jLabel23.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(51, 51, 51));
         jLabel23.setText("PS3 Basic");
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
@@ -370,7 +404,7 @@ public class List_Console_A extends javax.swing.JFrame {
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addGap(79, 79, 79)
                 .addComponent(jButton13)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(76, 76, 76))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -393,9 +427,12 @@ public class List_Console_A extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanel16.setBackground(new java.awt.Color(235, 235, 235));
+
         jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/PS3+.png"))); // NOI18N
         jLabel24.setToolTipText("");
 
+        jButton14.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jButton14.setText("Add to Cart");
         jButton14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -403,6 +440,8 @@ public class List_Console_A extends javax.swing.JFrame {
             }
         });
 
+        jLabel25.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(51, 51, 51));
         jLabel25.setText("PS3+");
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
@@ -421,7 +460,7 @@ public class List_Console_A extends javax.swing.JFrame {
                         .addGap(23, 23, 23))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
                         .addComponent(jLabel25)
-                        .addGap(107, 107, 107))))
+                        .addGap(95, 95, 95))))
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -435,8 +474,11 @@ public class List_Console_A extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanel17.setBackground(new java.awt.Color(235, 235, 235));
+
         jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/PS2.png"))); // NOI18N
 
+        jButton15.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jButton15.setText("Add to Cart");
         jButton15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -444,6 +486,8 @@ public class List_Console_A extends javax.swing.JFrame {
             }
         });
 
+        jLabel27.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel27.setForeground(new java.awt.Color(51, 51, 51));
         jLabel27.setText("PS2 Retro");
 
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
@@ -462,7 +506,7 @@ public class List_Console_A extends javax.swing.JFrame {
                         .addGap(23, 23, 23))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel17Layout.createSequentialGroup()
                         .addComponent(jLabel27)
-                        .addGap(101, 101, 101))))
+                        .addGap(89, 89, 89))))
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -476,8 +520,11 @@ public class List_Console_A extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanel18.setBackground(new java.awt.Color(235, 235, 235));
+
         jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/PS1.png"))); // NOI18N
 
+        jButton16.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jButton16.setText("Add to Cart");
         jButton16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -485,6 +532,8 @@ public class List_Console_A extends javax.swing.JFrame {
             }
         });
 
+        jLabel29.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel29.setForeground(new java.awt.Color(51, 51, 51));
         jLabel29.setText("PS1 Purba");
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
@@ -494,7 +543,7 @@ public class List_Console_A extends javax.swing.JFrame {
             .addGroup(jPanel18Layout.createSequentialGroup()
                 .addGap(85, 85, 85)
                 .addComponent(jButton16)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(76, 76, 76))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -503,7 +552,7 @@ public class List_Console_A extends javax.swing.JFrame {
                         .addGap(31, 31, 31))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
                         .addComponent(jLabel29)
-                        .addGap(95, 95, 95))))
+                        .addGap(89, 89, 89))))
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -539,7 +588,7 @@ public class List_Console_A extends javax.swing.JFrame {
                     .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 169, Short.MAX_VALUE)
                         .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -566,16 +615,19 @@ public class List_Console_A extends javax.swing.JFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jPanel8);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 640, 330));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 660, 380));
 
+        jLabel1.setFont(new java.awt.Font("Arial Black", 0, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Daftar Console");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 50, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 30, -1, -1));
 
+        jButton3.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jButton3.setText("Kembali");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

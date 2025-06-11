@@ -104,10 +104,9 @@ public class ListSubs extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(600, 500));
         setMinimumSize(new java.awt.Dimension(600, 500));
-        setPreferredSize(new java.awt.Dimension(600, 500));
 
+        jPanel1.setBackground(new java.awt.Color(0, 102, 102));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -126,6 +125,7 @@ public class ListSubs extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, 270));
 
+        jButton1.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jButton1.setText("Edit");
         jButton1.setMaximumSize(new java.awt.Dimension(123, 28));
         jButton1.setMinimumSize(new java.awt.Dimension(123, 28));
@@ -135,16 +135,18 @@ public class ListSubs extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 380, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 380, -1, -1));
 
+        jButton2.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jButton2.setText("Kembali ke Menu");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 380, -1, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 380, -1, -1));
 
+        jButton3.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jButton3.setText("Hapus");
         jButton3.setMaximumSize(new java.awt.Dimension(123, 28));
         jButton3.setMinimumSize(new java.awt.Dimension(123, 28));
@@ -154,10 +156,11 @@ public class ListSubs extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 380, -1, -1));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 380, -1, -1));
 
-        jLabel1.setText("List Subs");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 60, -1, -1));
+        jLabel1.setFont(new java.awt.Font("Arial Black", 0, 36)); // NOI18N
+        jLabel1.setText("List Subscription");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

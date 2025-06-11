@@ -135,6 +135,7 @@ public class HistoryPembayaran extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(600, 500));
 
+        jPanel1.setBackground(new java.awt.Color(0, 102, 102));
         jPanel1.setMaximumSize(new java.awt.Dimension(600, 500));
         jPanel1.setMinimumSize(new java.awt.Dimension(600, 500));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -154,9 +155,12 @@ public class HistoryPembayaran extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, -1, 340));
 
+        jLabel2.setFont(new java.awt.Font("Arial Black", 0, 36)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("History Persewaan");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, -1, -1));
 
+        jButton1.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jButton1.setText("Edit");
         jButton1.setMaximumSize(new java.awt.Dimension(123, 28));
         jButton1.setMinimumSize(new java.awt.Dimension(123, 28));
@@ -169,6 +173,7 @@ public class HistoryPembayaran extends javax.swing.JFrame {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 440, -1, -1));
 
+        jButton2.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jButton2.setText("Kembali ke Menu");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -177,6 +182,7 @@ public class HistoryPembayaran extends javax.swing.JFrame {
         });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 440, -1, -1));
 
+        jButton3.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jButton3.setText("Hapus");
         jButton3.setMaximumSize(new java.awt.Dimension(123, 28));
         jButton3.setMinimumSize(new java.awt.Dimension(123, 28));

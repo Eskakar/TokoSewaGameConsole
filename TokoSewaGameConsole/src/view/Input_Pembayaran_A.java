@@ -197,63 +197,82 @@ public class Input_Pembayaran_A extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(520, 500));
 
+        jPanel1.setBackground(new java.awt.Color(0, 102, 102));
         jPanel1.setMaximumSize(new java.awt.Dimension(800, 500));
         jPanel1.setMinimumSize(new java.awt.Dimension(800, 500));
         jPanel1.setPreferredSize(new java.awt.Dimension(800, 500));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("ID KTP                  :");
+        jLabel1.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("ID KTP           :");
         jLabel1.setMaximumSize(new java.awt.Dimension(40, 20));
         jLabel1.setMinimumSize(new java.awt.Dimension(40, 20));
         jLabel1.setPreferredSize(new java.awt.Dimension(40, 20));
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 100, -1));
 
+        jLabel3.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Metode Pembayaran :");
         jLabel3.setMaximumSize(new java.awt.Dimension(40, 20));
         jLabel3.setMinimumSize(new java.awt.Dimension(40, 20));
         jLabel3.setPreferredSize(new java.awt.Dimension(40, 20));
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 130, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 160, -1));
 
-        jLabel5.setText("Nama                   :");
+        jLabel5.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Nama             :");
         jLabel5.setMaximumSize(new java.awt.Dimension(40, 20));
         jLabel5.setMinimumSize(new java.awt.Dimension(40, 20));
         jLabel5.setPreferredSize(new java.awt.Dimension(40, 20));
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, 100, -1));
 
-        jLabel4.setText("Durasi Pinjam    :");
+        jLabel4.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Durasi Pinjam:");
         jLabel4.setMaximumSize(new java.awt.Dimension(40, 20));
         jLabel4.setMinimumSize(new java.awt.Dimension(40, 20));
         jLabel4.setPreferredSize(new java.awt.Dimension(40, 20));
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 100, -1));
 
+        jTextField2.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 78, 250, 30));
-        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 250, 30));
-        jPanel1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 260, 230, 30));
+        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 78, 290, 30));
+
+        jTextField3.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 290, 30));
+
+        jTextField4.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jPanel1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 260, 230, 30));
 
         jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 250, 60));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 290, 60));
 
-        jLabel6.setText("Catatan                :");
+        jLabel6.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Catatan          :");
         jLabel6.setMaximumSize(new java.awt.Dimension(40, 20));
         jLabel6.setMinimumSize(new java.awt.Dimension(40, 20));
         jLabel6.setPreferredSize(new java.awt.Dimension(40, 20));
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, 100, -1));
 
-        jLabel7.setText("Kode Voucher    :");
+        jLabel7.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Kode Voucher:");
         jLabel7.setMaximumSize(new java.awt.Dimension(40, 20));
         jLabel7.setMinimumSize(new java.awt.Dimension(40, 20));
         jLabel7.setPreferredSize(new java.awt.Dimension(40, 20));
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, 100, -1));
-        jPanel1.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, 250, 30));
-        jPanel1.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 230, 250, 30));
+        jPanel1.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, 290, 30));
+        jPanel1.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 230, 290, 30));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -271,24 +290,28 @@ public class Input_Pembayaran_A extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 300, 390, 90));
 
+        jButton1.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jButton1.setText("Confirm");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 400, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 400, -1, -1));
 
+        jLabel2.setFont(new java.awt.Font("Arial Black", 0, 36)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Form Pembayaran");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 40, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, -1, -1));
 
+        jButton3.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jButton3.setText("Kembali");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 400, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

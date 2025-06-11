@@ -54,6 +54,7 @@ public class Main {
             subB.setController(adminController);
             
             //menu login
+            login.setLocationRelativeTo(null);
             login.setVisible(true);
 
         });
