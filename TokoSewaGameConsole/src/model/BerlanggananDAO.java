@@ -33,16 +33,16 @@ public class BerlanggananDAO {
         return subscriptions;
     }
 
-    public boolean addSubscription(BerlanggananModel subscription) {
-        String sql = "INSERT INTO berlangganan (KTP, Nama, status, tanggal_expired) VALUES (?, ?, ?, ?)";
+    public boolean addSubscription(String ktp,String nama,int berapaLama) {
+        String sql = "INSERT INTO berlangganan (KTP, Nama, status, tanggal_expired) VALUES (?, ?, ?, DATE_ADD(NOW(), INTERVAL ? DAY))";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, subscription.getKtp());
-            pstmt.setString(2, subscription.getNama());
-            pstmt.setString(3, subscription.getStatus());
-            pstmt.setDate(4, new java.sql.Date(subscription.getTanggalExpired().getTime()));
+            pstmt.setString(1, ktp);
+            pstmt.setString(2, nama);
+            pstmt.setString(3, "Aktif");
+            pstmt.setInt(4, berapaLama);
 
             int rowsAffected = pstmt.executeUpdate();
             return rowsAffected > 0;
@@ -127,6 +127,16 @@ public class BerlanggananDAO {
         }
 
         return null;
+    }
+    public void expireSubscriptionsToday() {
+        String sql = "UPDATE berlangganan SET status = 'Expired' WHERE DATE(tanggal_expired) < CURDATE() AND status != 'Expired'";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.executeUpdate(); 
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error mengupdate status expired: " + e.getMessage());
+        }
     }
 }
 

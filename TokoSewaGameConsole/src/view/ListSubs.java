@@ -5,8 +5,6 @@
 package view;
 
 import controller.AdminController;
-import controller.BerlanggananController;
-import model.BerlanggananDAO;
 import model.BerlanggananModel;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -18,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Anzio
  */
 public class ListSubs extends javax.swing.JFrame {
-    private BerlanggananDAO subsDAO;
+
     private DefaultTableModel tableModel;
     private AdminController adminControl;
     /**
@@ -27,7 +25,6 @@ public class ListSubs extends javax.swing.JFrame {
     public ListSubs() {
         initComponents();
         initializeTable();
-        subsDAO = new BerlanggananDAO();
 
     }
 
@@ -84,7 +81,7 @@ public class ListSubs extends javax.swing.JFrame {
         }
         
         String ktp = (String) tableModel.getValueAt(selectedRow, 0);
-        return subsDAO.getSubscriptionByKTP(ktp);
+        return adminControl.getSubByKTP(ktp);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -178,11 +175,11 @@ public class ListSubs extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-    //Edit List Subs
-    BerlanggananModel selectedSub = getSelectedSubscription();
+        //Edit List Subs
+        BerlanggananModel selectedSub = getSelectedSubscription();
         if (selectedSub != null) {
             // Buka form edit subscription
-            EditSubscriptionForm editForm = new EditSubscriptionForm(this, true, selectedSub, subsDAO);
+            EditSubscriptionForm editForm = new EditSubscriptionForm(this, true, selectedSub, this.adminControl);
             editForm.setVisible(true);
             
             // Refresh tabel setelah edit
@@ -193,18 +190,18 @@ public class ListSubs extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-    //Kembali ke SubMenuB
+        //Kembali ke SubMenuB
         SubMenuB sm = adminControl.getSubMenuBView();
         sm.setVisible(true);
     
-    // Menutup form saat ini (optional)
+        // Menutup form saat ini (optional)
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-    //hapus ListSubs
-    BerlanggananModel selectedSub = getSelectedSubscription();
+        //hapus ListSubs
+        BerlanggananModel selectedSub = getSelectedSubscription();
         if (selectedSub != null) {
             int confirm = JOptionPane.showConfirmDialog(
                 this,
@@ -212,9 +209,9 @@ public class ListSubs extends javax.swing.JFrame {
                 "Konfirmasi Hapus",
                 JOptionPane.YES_NO_OPTION
             );
-            
+
             if (confirm == JOptionPane.YES_OPTION) {
-                if (subsDAO.deleteSubscription(selectedSub.getKtp())) {
+                if (adminControl.deletBerlangganaByKtp(selectedSub.getKtp())) {
                     JOptionPane.showMessageDialog(this, "Subscription berhasil dihapus!");
                     loadSubscriptionData(); // Refresh tabel
                 } else {
@@ -260,7 +257,7 @@ public class ListSubs extends javax.swing.JFrame {
     }
     public void setController(AdminController controller) {
         this.adminControl = controller;
-        //loadSubscriptionData();
+        loadSubscriptionData();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

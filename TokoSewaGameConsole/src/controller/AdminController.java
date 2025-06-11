@@ -93,6 +93,7 @@ public class AdminController {
         if(statusLogin == "admin"){
             this.modelAdmin =loginDAO.getAdminByUsername(username);
             loadAdminModelController();
+            berlanggananControl.updateExpiredToday();
         }else{
             statusLogin = null;
         }
@@ -135,14 +136,27 @@ public class AdminController {
     public BigDecimal hitungTotalHarga(int idCon,int durasi,String kodeDiskon,String KTP){
         return pembayaranControl.hitungTotalHarga(idCon, durasi, kodeDiskon, KTP);
     }
+    
    //C. subscirption
     //1. Ambil data berlangganan
     public ArrayList loadSubs(){
         return berlanggananControl.loadBerlanggananList();
     }
     //2.tambah subs
-    public void addSubs(BerlanggananModel berlanggananModel){
-        berlanggananControl.addSubs(berlanggananModel);
+    public boolean addSubs(String ktp,String nama,int berapaLama){
+        return berlanggananControl.addSubs(ktp,nama,berapaLama);
+    }
+    //3. getSubsByKTP
+    public BerlanggananModel getSubByKTP(String ktp){
+        return berlanggananControl.getSubsByKTP(ktp);
+    }
+    //4.hapus berlangganan
+    public boolean deletBerlangganaByKtp(String ktp){
+        return berlanggananControl.deletBerlangganaByKtp(ktp);
+    }
+    //5. edit data berlangganan
+    public boolean editBerlanggana(BerlanggananModel data,EditSubscriptionForm editFormView){
+        return berlanggananControl.updateSubscription(data,editFormView);
     }
     //D.Gudang atau data Console
     public ArrayList loadConsoleList(){
@@ -201,6 +215,9 @@ public class AdminController {
     }
     public int getAdminModelID(){
         return this.modelAdmin.getId();
+    }
+    public Login getLoginView(){
+        return this.login;
     }
     
     public void setInpView(Input_Pembayaran_A inputview){

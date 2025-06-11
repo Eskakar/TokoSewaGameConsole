@@ -19,17 +19,21 @@ import javax.swing.JOptionPane;
 
 public class DaftarSubs extends javax.swing.JFrame {
     private AdminController adminControl;
-    private BerlanggananDAO berlanggananDAO;
+    private BerlanggananModel berlanggananModel;
+    private int berapaBulan;
 
     /**
      * Creates new form Subscriptions
      */
     public DaftarSubs(){
         initComponents();
-        berlanggananDAO = new BerlanggananDAO();
+        berlanggananModel = new BerlanggananModel();
         setLocationRelativeTo(null);
     }
 
+    //butuh fungsi yang ngeupdate status berlanggganan dari exp ke belum exp
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -132,6 +136,24 @@ public class DaftarSubs extends javax.swing.JFrame {
         if (!validateInput()) {
             return;
         }
+        //butuh check apakah sudah pernah terdaftar belum ktpnya
+        if(adminControl.getSubByKTP(berlanggananModel.getKtp()) != null){
+            this.showMessage("Sudah Pernah Terdaftar");
+            return;
+        }       
+        if(!adminControl.addSubs(
+                berlanggananModel.getKtp(),
+                berlanggananModel.getNama(),
+                this.berapaBulan
+        )){
+            showMessage("Gagal Menambah Data berlangganan");
+            return;
+        }    
+        this.showMessage("Berhasil Menambahkan Data Berlangganan");
+        clearForm();
+        SubMenuB subB= adminControl.getSubMenuBView();
+        subB.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -144,46 +166,59 @@ public class DaftarSubs extends javax.swing.JFrame {
     private boolean validateInput() {
         String ktp = jTextField2.getText().trim();
         String nama = jTextField3.getText().trim();
-        String tanggalExpired = jTextField5.getText().trim();
-        
+        String expiredText = jTextField5.getText().trim(); // ambil teks mentah dulu
+
         if (ktp.isEmpty()) {
             JOptionPane.showMessageDialog(this, "ID KTP tidak boleh kosong!", "Error", JOptionPane.ERROR_MESSAGE);
             jTextField2.requestFocus();
             return false;
         }
-        
+
         if (ktp.length() != 15) {
             JOptionPane.showMessageDialog(this, "ID KTP harus 15 digit!", "Error", JOptionPane.ERROR_MESSAGE);
             jTextField2.requestFocus();
             return false;
         }
-        
+
         if (!ktp.matches("\\d+")) {
             JOptionPane.showMessageDialog(this, "ID KTP hanya boleh berisi angka!", "Error", JOptionPane.ERROR_MESSAGE);
             jTextField2.requestFocus();
             return false;
         }
-        
+
         if (nama.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Nama tidak boleh kosong!", "Error", JOptionPane.ERROR_MESSAGE);
             jTextField3.requestFocus();
             return false;
         }
-        
+
         if (nama.length() < 2) {
             JOptionPane.showMessageDialog(this, "Nama minimal 2 karakter!", "Error", JOptionPane.ERROR_MESSAGE);
             jTextField3.requestFocus();
             return false;
         }
-        
-        if (tanggalExpired.isEmpty()) {
+
+        // Validasi tanggalExpired
+        if (expiredText.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Tanggal expired tidak boleh kosong!", "Error", JOptionPane.ERROR_MESSAGE);
             jTextField5.requestFocus();
             return false;
         }
-        
+
+        int tanggalExpired;
+        try {
+            tanggalExpired = Integer.parseInt(expiredText);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Tanggal expired harus berupa angka!", "Error", JOptionPane.ERROR_MESSAGE);
+            jTextField5.requestFocus();
+            return false;
+        }
+
+        // Lolos semua validasi
+        setBerlanggananModel(ktp, nama, tanggalExpired);
         return true;
     }
+
     
      private void clearForm() {
         jTextField2.setText("");
@@ -232,6 +267,17 @@ public class DaftarSubs extends javax.swing.JFrame {
     }
     public void setController(AdminController controller) {
         this.adminControl = controller;
+    }
+    public void showMessage(String message) {
+        JOptionPane.showMessageDialog(this, message);
+    }
+    private BerlanggananModel setBerlanggananModel(String ktp,String nama,int berapabulan){
+        berlanggananModel.setKtp(ktp);
+        berlanggananModel.setNama(nama);
+        this.berapaBulan = berapabulan;
+        //berlanggananModel.setTanggalExpired(date);
+        //tanggal exp 6 bulan dari pendaftaran
+        return berlanggananModel;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;

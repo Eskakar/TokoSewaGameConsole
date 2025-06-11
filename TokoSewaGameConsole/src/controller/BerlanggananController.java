@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import model.AdminModel;
 import model.BerlanggananDAO;
 import model.BerlanggananModel;
-import view.AddSubscriptionForm;
 import view.EditSubscriptionForm;
 
 /**
@@ -19,23 +18,19 @@ public class BerlanggananController {
     private BerlanggananDAO subsDAO;
     private BerlanggananModel subsModel;
     private AdminModel currentAdmin;
-    private AddSubscriptionForm viewAddSubs;
     private EditSubscriptionForm editSubsView;
     public BerlanggananController(AdminModel admModel){
         this.currentAdmin = admModel;
         subsDAO = new BerlanggananDAO();
+        //update expired subscription
+        
     }
     
     public ArrayList loadBerlanggananList() {
        return subsDAO.getAllSubscriptions();
     }
-    public void addSubs(BerlanggananModel berModel){
-        boolean menambahkan = subsDAO.updateSubscription(berModel);
-        if(menambahkan == false){
-            viewAddSubs.showMessage("Gagal Menambahkan Berlangganan");
-        }else{
-            viewAddSubs.showMessage("Berhasil Menambahkan Berlangganan");
-        }
+    public boolean addSubs(String ktp,String nama,int berapaLama){
+        return subsDAO.addSubscription(ktp,nama,berapaLama);     
     }
     public void updateSubscription(String KTP, String newStatus) {
         if(currentAdmin == null){
@@ -47,14 +42,16 @@ public class BerlanggananController {
             editSubsView.showMessage("Gagal memperbarui status berlangganan.");
         }
     }
-    public void updateSubscription(BerlanggananModel berlangganan) {       
+    public boolean updateSubscription(BerlanggananModel berlangganan, EditSubscriptionForm editFormView) {       
         if(currentAdmin == null){
-            editSubsView.showMessage("login dulu");
+            editFormView.showMessage("login dulu");
+            return false;
         }else if (subsDAO.updateSubscription(berlangganan)) {
-            editSubsView.showMessage("Status berlangganan berhasil diperbarui!");
-            loadBerlanggananList();
+            editFormView.showMessage("Status berlangganan berhasil diperbarui!");
+            return true;
         } else {
-            editSubsView.showMessage("Gagal memperbarui status berlangganan.");
+            editFormView.showMessage("Gagal memperbarui status berlangganan.");
+            return false;
         }
     }
     public BerlanggananModel getSubsByKTP(String ktp){
@@ -64,11 +61,16 @@ public class BerlanggananController {
         }else if (ktp != null) {
             return subsDAO.getSubscriptionByKTP(ktp);
         } else {
-            editSubsView.showMessage("tidak terdapat data");
             return null;
         }
     }
+    public boolean deletBerlangganaByKtp(String ktp){
+        return subsDAO.deleteSubscription(ktp);
+    }
     public void setAdminModel(AdminModel model){
         this.currentAdmin = model;
+    }
+    public void updateExpiredToday(){
+        subsDAO.expireSubscriptionsToday();
     }
 }

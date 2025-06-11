@@ -18,17 +18,16 @@ import controller.AdminController;
  */
 public class EditSubscriptionForm extends javax.swing.JDialog {
     private AdminController adminControl;
-    private BerlanggananDAO subsDAO;
     private BerlanggananModel subscription;
     private SimpleDateFormat dateFormat;
 
     /**
      * Creates new form EditSubscriptionForm
      */
-    public EditSubscriptionForm(java.awt.Frame parent, boolean modal, BerlanggananModel subscription, BerlanggananDAO subsDAO) {
+    public EditSubscriptionForm(java.awt.Frame parent, boolean modal, BerlanggananModel subscription, AdminController adminControl) {
         super(parent, modal);
         this.subscription = subscription;
-        this.subsDAO = subsDAO;
+        this.adminControl = adminControl;
         this.dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         
         initComponents();
@@ -48,11 +47,10 @@ public class EditSubscriptionForm extends javax.swing.JDialog {
         // Set combo box status
         cmbStatus.removeAllItems();
         cmbStatus.addItem("Aktif");
-        cmbStatus.addItem("Tidak Aktif");
         cmbStatus.addItem("Expired");
         cmbStatus.setSelectedItem(subscription.getStatus());
         
-        // Set tanggal expired
+        // Set tanggal expiredView
         if (subscription.getTanggalExpired() != null) {
             txtTanggalExpired.setText(dateFormat.format(subscription.getTanggalExpired()));
         }
@@ -184,7 +182,7 @@ public class EditSubscriptionForm extends javax.swing.JDialog {
                 subscription.setTanggalExpired(tanggalExpired);
                 
                 // Simpan ke database
-                if (subsDAO.updateSubscription(subscription)) {
+                if (adminControl.editBerlanggana(subscription,this)) {
                     JOptionPane.showMessageDialog(this, "Data subscription berhasil diupdate!");
                     this.dispose();
                 } else {
