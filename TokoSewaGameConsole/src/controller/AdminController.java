@@ -34,6 +34,7 @@ public class AdminController {
     private Menu menu;
     private SubMenuA subA;
     private SubMenuB subB;
+    RamalanCuaca ramalanCuacaView;
     //bikin object dari tiap controller
     private BerlanggananController berlanggananControl;
     private ConsoleController consoleControl;
@@ -41,7 +42,8 @@ public class AdminController {
     private PembayaranController pembayaranControl;
     
     public AdminController(DaftarSubs dafView, Gudang gudangView, HistoryPembayaran historyView,
-            Input_Pembayaran_A inputPemView,ListSubs listSubsView,List_Console_A listconsole,Login login, Menu menu, SubMenuA subA,SubMenuB subB) {
+            Input_Pembayaran_A inputPemView,ListSubs listSubsView,List_Console_A listconsole,
+            Login login, Menu menu, SubMenuA subA,SubMenuB subB, RamalanCuaca cuaca) {
         this.modelAdmin = new AdminModel(0,null,null);
         this.berlanggananControl = new BerlanggananController(this.modelAdmin);
         this.loginDAO = new LoginDAO();
@@ -59,6 +61,7 @@ public class AdminController {
         this.menu = menu;
         this.subA = subA;
         this.subB = subB;
+        this.ramalanCuacaView = cuaca;
     }
     private void loadAdminModelController(){//ini belum terload kalau belum login
         berlanggananControl.setAdminModel(modelAdmin);
@@ -218,6 +221,9 @@ public class AdminController {
     }
     public Login getLoginView(){
         return this.login;
+    }
+    public RamalanCuaca getRamalanCuaca(){
+        return this.ramalanCuacaView;
     }
     
     public void setInpView(Input_Pembayaran_A inputview){

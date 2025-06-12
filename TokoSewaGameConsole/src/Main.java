@@ -28,6 +28,7 @@ public class Main {
             Menu menu = new Menu();
             SubMenuA subA = new SubMenuA();
             SubMenuB subB = new SubMenuB();
+            RamalanCuaca cuacaView = new RamalanCuaca();
             //sekalian inisialisasi ke Admincontroller
             AdminController adminController = new AdminController(
                     dafView,  
@@ -39,7 +40,8 @@ public class Main {
                     login,  
                     menu,  
                     subA,  
-                    subB  
+                    subB,
+                    cuacaView
             );
             //set controller biar pakai admincontroller semua
             dafView.setController(adminController);
@@ -52,7 +54,7 @@ public class Main {
             menu.setController(adminController);
             subA.setController(adminController);
             subB.setController(adminController);
-
+            cuacaView.setController(adminController);
             
             //menu login
             login.setLocationRelativeTo(null);
