@@ -78,7 +78,7 @@ public class PembayaranController {
 
         // Step 3: Cek apakah pelanggan berlangganan
         BerlanggananModel subs = berlangDAO.getSubscriptionByKTP(KTP);
-        if((subs != null) && (subs.getStatus() == "Aktif")){
+        if(subs != null && "Aktif".equalsIgnoreCase(subs.getStatus().trim())){
             BigDecimal potongan = new BigDecimal("0.2");
             // Isi otomatis nama
             nama_pelanggan = subs.getNama();

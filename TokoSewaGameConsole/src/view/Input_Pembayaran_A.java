@@ -95,6 +95,11 @@ public class Input_Pembayaran_A extends javax.swing.JFrame {
             jTextField2.requestFocus();
             return false;
         }
+        if (jTextField2.getText().trim().length() != 15) {
+            JOptionPane.showMessageDialog(this, "ID KTP harus 15 digit!", "Error", JOptionPane.ERROR_MESSAGE);
+            jTextField2.requestFocus();
+            return false;
+        }
         
         // Cek Nama
         if (jTextField3.getText().trim().isEmpty()) {
